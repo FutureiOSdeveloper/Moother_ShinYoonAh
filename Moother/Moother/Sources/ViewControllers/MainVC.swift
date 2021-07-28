@@ -28,6 +28,7 @@ class MainVC: UIViewController {
         $0.image = UIImage(systemName: "list.dash")
         $0.tintColor = .white
     }
+    let containerView = UIView()
     let pageControl = UIPageControl()
     
     var items: [UIBarButtonItem] = []
@@ -38,14 +39,20 @@ class MainVC: UIViewController {
         setupLayout()
         configUI()
         setupToolbarItem()
+        setupContainerView()
     }
     
     // MARK: - Custom Method
     fileprivate func setupLayout() {
-        view.addSubviews([toolBar])
+        view.addSubviews([toolBar, containerView])
         
         toolBar.snp.makeConstraints {
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        containerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(toolBar.snp.top)
         }
     }
     
@@ -67,5 +74,16 @@ class MainVC: UIViewController {
         items.append(weatherListButton)
         
         toolBar.setItems(items, animated: true)
+    }
+    
+    private func setupContainerView() {
+        let vc = MainPageVC()
+        addChild(vc)
+        
+        containerView.addSubview(vc.view)
+        
+        vc.view.snp.makeConstraints {
+            $0.edges.equalTo(containerView.snp.edges)
+        }
     }
 }
