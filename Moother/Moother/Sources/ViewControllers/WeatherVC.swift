@@ -7,14 +7,16 @@
 
 import UIKit
 
+import Then
+
 class WeatherVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        view.backgroundColor = .red
     }
-    
+
 
     /*
     // MARK: - Navigation

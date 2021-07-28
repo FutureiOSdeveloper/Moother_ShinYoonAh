@@ -18,6 +18,8 @@ class MainPageVC: UIPageViewController {
         guard let vc = viewControllers?.first else { return 0 }
         return viewsList.firstIndex(of: vc) ?? 0
     }
+    
+    private var currentPage = 0
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -27,6 +29,7 @@ class MainPageVC: UIPageViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        setViewControllersFromIndex(index: currentPage)
     }
     
     private func pageInit() {
@@ -35,9 +38,16 @@ class MainPageVC: UIPageViewController {
         
         view.backgroundColor = .clear
         
-        let weatherVC = UIViewController(nibName: "WeatherVC", bundle: nil)
+        guard let weatherVC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
+            return }
         
         viewsList = [weatherVC]
+    }
+    
+    func setViewControllersFromIndex(index: Int) {
+        if index < 0 && index >= viewsList.count { return }
+        self.setViewControllers([viewsList[index]], direction: .forward, animated:true, completion: nil)
+        completeHandler?(currentIndex)
     }
 }
 

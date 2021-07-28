@@ -77,7 +77,7 @@ class MainVC: UIViewController {
     }
     
     private func setupContainerView() {
-        let vc = MainPageVC()
+        guard let vc = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "MainPageVC") as? MainPageVC else { return }
         addChild(vc)
         
         containerView.addSubview(vc.view)
