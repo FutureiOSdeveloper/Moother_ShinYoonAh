@@ -33,6 +33,7 @@ class MainPageVC: UIPageViewController {
         setViewControllersFromIndex(index: currentPage)
     }
     
+    // MARK: - Custom Methods
     private func pageInit() {
         self.dataSource = self
         self.delegate = self
@@ -43,7 +44,6 @@ class MainPageVC: UIPageViewController {
             return }
         guard let weather2VC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
             return }
-        weather2VC.view.backgroundColor = .brown
         viewsList = [weatherVC, weather2VC]
         
         rootVC?.pageControl.numberOfPages = viewsList.count
@@ -56,6 +56,7 @@ class MainPageVC: UIPageViewController {
     }
 }
 
+// MARK: - UIPageViewControllerDataSource
 extension MainPageVC: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let index = viewsList.firstIndex(of: viewController) else { return nil }
@@ -72,6 +73,7 @@ extension MainPageVC: UIPageViewControllerDataSource {
     }
 }
 
+// MARK: - UIPageViewControllerDelegate
 extension MainPageVC: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         rootVC?.pageControl.currentPage = currentIndex
