@@ -10,7 +10,7 @@
         <!--Main PageVC-->
         <scene sceneID="VVG-YQ-wIZ">
             <objects>
-                <pageViewController storyboardIdentifier="MainPageVC" autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="9Vf-vm-rja" customClass="MainPageVC" customModule="Moother" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="MainPageVC" autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="9Vf-vm-rja" customClass="MainPageVC" customModule="Moother" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vtt-k2-Ybp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-809" y="100"/>

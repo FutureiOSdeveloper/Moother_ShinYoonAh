@@ -58,8 +58,6 @@ class MainVC: UIViewController {
     
     fileprivate func configUI() {
         view.backgroundColor = UIColor.init(red: 168/255, green: 224/255, blue: 244/255, alpha: 1.0)
-        
-        pageControl.numberOfPages = 3
     }
     
     private func setupToolbarItem() {
@@ -80,6 +78,7 @@ class MainVC: UIViewController {
         guard let vc = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "MainPageVC") as? MainPageVC else { return }
         addChild(vc)
         
+        vc.rootVC = self
         containerView.addSubview(vc.view)
         
         vc.view.snp.makeConstraints {

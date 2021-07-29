@@ -19,7 +19,8 @@ class MainPageVC: UIPageViewController {
         return viewsList.firstIndex(of: vc) ?? 0
     }
     
-    private var currentPage = 0
+    var rootVC: MainVC?
+    var currentPage = 0
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -40,8 +41,12 @@ class MainPageVC: UIPageViewController {
         
         guard let weatherVC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
             return }
+        guard let weather2VC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
+            return }
+        weather2VC.view.backgroundColor = .brown
+        viewsList = [weatherVC, weather2VC]
         
-        viewsList = [weatherVC]
+        rootVC?.pageControl.numberOfPages = viewsList.count
     }
     
     func setViewControllersFromIndex(index: Int) {
@@ -69,6 +74,8 @@ extension MainPageVC: UIPageViewControllerDataSource {
 
 extension MainPageVC: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        rootVC?.pageControl.currentPage = currentIndex
+        
         if completed {
             completeHandler?(currentIndex)
         }
