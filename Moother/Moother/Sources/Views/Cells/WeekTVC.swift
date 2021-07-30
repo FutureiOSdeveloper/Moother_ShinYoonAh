@@ -33,7 +33,7 @@ class WeekTVC: UITableViewCell {
         $0.font = .systemFont(ofSize: 20)
     }
     let minLabel = UILabel().then {
-        $0.textColor = .systemGray2
+        $0.textColor = .white.withAlphaComponent(0.7)
         $0.text = "25"
         $0.font = .systemFont(ofSize: 20)
     }
@@ -73,7 +73,7 @@ class WeekTVC: UITableViewCell {
         }
         
         maxLabel.snp.makeConstraints {
-            $0.trailing.equalTo(minLabel.snp.leading).offset(-15)
+            $0.trailing.equalTo(minLabel.snp.leading).offset(-30)
             $0.centerY.equalToSuperview()
         }
     }
