@@ -51,8 +51,7 @@ class WeatherVC: UIViewController {
     func setupTableView() {
         tableView.backgroundColor = .clear
         tableView.showsVerticalScrollIndicator = false
-        
-        tableView.register(WeatherWeekTVC.self, forCellReuseIdentifier: WeatherWeekTVC.identifier)
+        tableView.register(UINib(nibName: WeatherWeekTVC.identifier, bundle: nil), forCellReuseIdentifier: WeatherWeekTVC.identifier)
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -102,16 +101,31 @@ extension WeatherVC: UIScrollViewDelegate {
 
 // MARK: - UITableViewDataSource
 extension WeatherVC: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherWeekTVC.identifier) as? WeatherWeekTVC else { return UITableViewCell() }
-        cell.backgroundColor = .clear
-        return cell
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherWeekTVC.identifier) as? WeatherWeekTVC else { return UITableViewCell() }
+            cell.backgroundColor = .clear
+            return cell
+        default:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherWeekTVC.identifier) as? WeatherWeekTVC else { return UITableViewCell() }
+            cell.backgroundColor = .clear
+            return cell
+        }
     }
 }
 
 // MARK: - UITableViewDelegate
-extension WeatherVC: UITableViewDelegate {}
+extension WeatherVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 270
+    }
+}
