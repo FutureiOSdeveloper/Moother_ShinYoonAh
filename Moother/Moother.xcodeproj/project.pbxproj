@@ -34,6 +34,7 @@
 		EDD1D04B26B3FB9C0084AB6F /* WeatherAreaTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1D04926B3FB9C0084AB6F /* WeatherAreaTVC.swift */; };
 		EDD1D04C26B3FB9C0084AB6F /* WeatherAreaTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDD1D04A26B3FB9C0084AB6F /* WeatherAreaTVC.xib */; };
 		EDD1D04E26B3FC530084AB6F /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1D04D26B3FC530084AB6F /* UIButton+.swift */; };
+		EDD1D05026B3FE840084AB6F /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1D04F26B3FE840084AB6F /* UITableView+.swift */; };
 		F1011FF988EFC2D93F665C3E /* Pods_Moother.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E44CC294DF61C20BCFC13B79 /* Pods_Moother.framework */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		EDD1D04926B3FB9C0084AB6F /* WeatherAreaTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAreaTVC.swift; sourceTree = "<group>"; };
 		EDD1D04A26B3FB9C0084AB6F /* WeatherAreaTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherAreaTVC.xib; sourceTree = "<group>"; };
 		EDD1D04D26B3FC530084AB6F /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
+		EDD1D04F26B3FE840084AB6F /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 				EDD1D01226B116A70084AB6F /* UIView+.swift */,
 				EDD1D02926B39C3C0084AB6F /* UILabel+.swift */,
 				EDD1D04D26B3FC530084AB6F /* UIButton+.swift */,
+				EDD1D04F26B3FE840084AB6F /* UITableView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -392,6 +395,7 @@
 				EDD1D04726B3F6E90084AB6F /* DetailTVC.swift in Sources */,
 				EDD1CFF226B107240084AB6F /* SceneDelegate.swift in Sources */,
 				EDD1D04E26B3FC530084AB6F /* UIButton+.swift in Sources */,
+				EDD1D05026B3FE840084AB6F /* UITableView+.swift in Sources */,
 				EDD1D02C26B3CF720084AB6F /* WeatherHeaderView.swift in Sources */,
 				EDD1D03F26B3F2D40084AB6F /* WeatherInfoTVC.swift in Sources */,
 				EDD1D04326B3F4E30084AB6F /* WeatherDetailTVC.swift in Sources */,
