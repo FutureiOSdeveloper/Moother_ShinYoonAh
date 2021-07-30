@@ -16,7 +16,7 @@ class WeatherVC: UIViewController {
     var headerHeightConstraint: NSLayoutConstraint!
     
     let headerHeight: CGFloat = 340
-    let compactHeight: CGFloat = 100
+    let compactHeight: CGFloat = 120
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -56,11 +56,38 @@ extension WeatherVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y < 0 && self.headerHeightConstraint.constant < headerHeight {
             self.headerHeightConstraint.constant += abs(scrollView.contentOffset.y)
+            self.headerView.labelHeightConstraint.constant += abs(scrollView.contentOffset.y)
+            
+            headerView.temperatureLabel.alpha += abs(scrollView.contentOffset.y/300)
+            headerView.degreeLabel.alpha += abs(scrollView.contentOffset.y/300)
+            headerView.limitTemperatureLabel.alpha += abs(scrollView.contentOffset.y/300)
+            
+            if headerView.labelHeightConstraint.constant >= 70 {
+                headerView.labelHeightConstraint.constant = 70
+            }
+            
+            if self.headerHeightConstraint.constant >= 330 {
+                headerView.temperatureLabel.alpha = 1
+                headerView.degreeLabel.alpha = 1
+                headerView.limitTemperatureLabel.alpha = 1
+            }
         } else if scrollView.contentOffset.y > 0 && self.headerHeightConstraint.constant >= compactHeight {
             self.headerHeightConstraint.constant -= scrollView.contentOffset.y/15
+            headerView.labelHeightConstraint.constant -= scrollView.contentOffset.y/30
+            headerView.temperatureLabel.alpha -= scrollView.contentOffset.y/700
+            headerView.degreeLabel.alpha -= scrollView.contentOffset.y/700
+            headerView.limitTemperatureLabel.alpha -= scrollView.contentOffset.y/700
 
             if self.headerHeightConstraint.constant <= compactHeight {
                 self.headerHeightConstraint.constant = compactHeight
+            }
+            
+            if headerView.labelHeightConstraint.constant <= 0 {
+                headerView.labelHeightConstraint.constant = 0
+                
+                headerView.temperatureLabel.alpha = 0
+                headerView.degreeLabel.alpha = 0
+                headerView.limitTemperatureLabel.alpha = 0
             }
         }
     }
