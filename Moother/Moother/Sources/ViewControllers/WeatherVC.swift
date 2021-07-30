@@ -52,6 +52,7 @@ class WeatherVC: UIViewController {
         tableView.register(UINib(nibName: WeatherWeekTVC.identifier, bundle: nil), forCellReuseIdentifier: WeatherWeekTVC.identifier)
         tableView.register(UINib(nibName: WeatherInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: WeatherInfoTVC.identifier)
         tableView.register(UINib(nibName: WeatherDetailTVC.identifier, bundle: nil), forCellReuseIdentifier: WeatherDetailTVC.identifier)
+        tableView.register(UINib(nibName: WeatherAreaTVC.identifier, bundle: nil), forCellReuseIdentifier: WeatherAreaTVC.identifier)
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -130,7 +131,7 @@ extension WeatherVC: UITableViewDataSource {
             cell.backgroundColor = .clear
             return cell
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTVC.identifier) as? WeatherInfoTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherAreaTVC.identifier) as? WeatherAreaTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             return cell
         }
@@ -148,7 +149,7 @@ extension WeatherVC: UITableViewDelegate {
         case 2:
             return 300
         default:
-            return 80
+            return 40
         }
     }
 }
