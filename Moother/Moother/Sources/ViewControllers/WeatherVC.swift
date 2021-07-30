@@ -49,12 +49,14 @@ class WeatherVC: UIViewController {
     }
     
     func setupTableView() {
-        tableView.backgroundColor = .clear
-        tableView.showsVerticalScrollIndicator = false
         tableView.register(UINib(nibName: WeatherWeekTVC.identifier, bundle: nil), forCellReuseIdentifier: WeatherWeekTVC.identifier)
+        tableView.register(UINib(nibName: WeatherInfoTVC.identifier, bundle: nil), forCellReuseIdentifier: WeatherInfoTVC.identifier)
+        
         tableView.dataSource = self
         tableView.delegate = self
         
+        tableView.backgroundColor = .clear
+        tableView.showsVerticalScrollIndicator = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.separatorColor = .white.withAlphaComponent(0.3)
     }
@@ -118,8 +120,12 @@ extension WeatherVC: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherWeekTVC.identifier) as? WeatherWeekTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             return cell
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTVC.identifier) as? WeatherInfoTVC else { return UITableViewCell() }
+            cell.backgroundColor = .clear
+            return cell
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherWeekTVC.identifier) as? WeatherWeekTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTVC.identifier) as? WeatherInfoTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             return cell
         }
@@ -129,6 +135,13 @@ extension WeatherVC: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension WeatherVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 315
+        switch indexPath.section {
+        case 0:
+            return 315
+        case 1:
+            return 60
+        default:
+            return 80
+        }
     }
 }
