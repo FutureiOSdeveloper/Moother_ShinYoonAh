@@ -13,6 +13,7 @@ class WeatherVC: UIViewController {
     // MARK: - Properties
     var tableView = UITableView()
     var headerView = CustomHeaderView(frame: CGRect.zero)
+    var weatherTimeView = WeatherHeaderView()
     var headerHeightConstraint: NSLayoutConstraint!
     
     let headerHeight: CGFloat = 340
@@ -27,7 +28,7 @@ class WeatherVC: UIViewController {
     
     // MARK: - Custom Methods
     private func setupLayout() {
-        view.addSubviews([tableView, headerView])
+        view.addSubviews([tableView, headerView, weatherTimeView])
         
         headerView.snp.makeConstraints {
             $0.top.leading.trailing.equalToSuperview()
@@ -35,8 +36,14 @@ class WeatherVC: UIViewController {
         headerHeightConstraint = headerView.heightAnchor.constraint(equalToConstant: headerHeight)
         headerHeightConstraint.isActive = true
         
-        tableView.snp.makeConstraints {
+        weatherTimeView.snp.makeConstraints {
             $0.top.equalTo(headerView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(126)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(weatherTimeView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
     }
@@ -60,16 +67,16 @@ extension WeatherVC: UIScrollViewDelegate {
             
             if headerView.labelHeightConstraint.constant >= 70 {
                 headerView.labelHeightConstraint.constant = 70
-                
-                if self.headerHeightConstraint.constant >= 330 {
-                    headerView.temperatureLabel.alpha = 1
-                    headerView.degreeLabel.alpha = 1
-                    headerView.limitTemperatureLabel.alpha = 1
-                } else {
-                    headerView.temperatureLabel.alpha += abs(scrollView.contentOffset.y/200)
-                    headerView.degreeLabel.alpha += abs(scrollView.contentOffset.y/200)
-                    headerView.limitTemperatureLabel.alpha += abs(scrollView.contentOffset.y/200)
-                }
+            }
+            
+            if self.headerHeightConstraint.constant >= 270 {
+                headerView.temperatureLabel.alpha += abs(scrollView.contentOffset.y/100)
+                headerView.degreeLabel.alpha += abs(scrollView.contentOffset.y/100)
+                headerView.limitTemperatureLabel.alpha += abs(scrollView.contentOffset.y/100)
+            } else if self.headerHeightConstraint.constant >= 330 {
+                headerView.temperatureLabel.alpha = 1
+                headerView.degreeLabel.alpha = 1
+                headerView.limitTemperatureLabel.alpha = 1
             }
         } else if scrollView.contentOffset.y > 0 && self.headerHeightConstraint.constant >= compactHeight {
             self.headerHeightConstraint.constant -= scrollView.contentOffset.y/15
@@ -107,4 +114,4 @@ extension WeatherVC: UITableViewDataSource {
 }
 
 // MARK: - UITableViewDelegate
-extension WeatherVC: UITableViewDelegate { }
+extension WeatherVC: UITableViewDelegate {}

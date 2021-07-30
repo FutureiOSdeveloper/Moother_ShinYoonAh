@@ -57,7 +57,7 @@ class MainVC: UIViewController {
     }
     
     fileprivate func configUI() {
-        view.backgroundColor = UIColor.init(red: 168/255, green: 224/255, blue: 244/255, alpha: 1.0)
+        view.backgroundColor = UIColor.init(red: 79/255, green: 192/255, blue: 232/255, alpha: 1.0)
     }
     
     private func setupToolbarItem() {
