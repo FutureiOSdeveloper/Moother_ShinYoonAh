@@ -40,6 +40,7 @@ class MainVC: UIViewController {
         configUI()
         setupToolbarItem()
         setupContainerView()
+        setupPageControl()
     }
     
     // MARK: - Custom Method
@@ -84,5 +85,9 @@ class MainVC: UIViewController {
         vc.view.snp.makeConstraints {
             $0.edges.equalTo(containerView.snp.edges)
         }
+    }
+    
+    func setupPageControl() {
+         pageControl.setIndicatorImage(UIImage(systemName: "location.fill"), forPage: 0)
     }
 }
