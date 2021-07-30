@@ -68,7 +68,7 @@ class WeatherVC: UIViewController {
 // MARK: - UIScrollViewDelegate
 extension WeatherVC: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y < 0 && self.headerHeightConstraint.constant < headerHeight {
+        if scrollView.contentOffset.y < 0  {
             self.headerHeightConstraint.constant += abs(scrollView.contentOffset.y)
             self.headerView.labelHeightConstraint.constant += abs(scrollView.contentOffset.y)
             
@@ -104,6 +104,25 @@ extension WeatherVC: UIScrollViewDelegate {
                 headerView.limitTemperatureLabel.alpha = 0
             }
         }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if self.headerHeightConstraint.constant > headerHeight {
+            animateHeader()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if self.headerHeightConstraint.constant > headerHeight {
+            animateHeader()
+        }
+    }
+    
+    func animateHeader() {
+        self.headerHeightConstraint.constant = headerHeight
+        UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        }, completion: nil)
     }
 }
 
