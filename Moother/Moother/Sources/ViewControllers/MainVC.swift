@@ -9,9 +9,11 @@ import UIKit
 
 import Then
 import SnapKit
+import Lottie
 
 class MainVC: UIViewController {
     // MARK: - Properties
+    lazy var lottieView = AnimationView(name: "4800-weather-partly-cloudy")
     let toolBar = UIToolbar().then {
         $0.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
     }
@@ -43,9 +45,18 @@ class MainVC: UIViewController {
         setupPageControl()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.3, execute: {
+            self.lottieView.isHidden = false
+            self.lottieView.fadeIn()
+        })
+        
+        lottieView.play()
+    }
+    
     // MARK: - Custom Method
     fileprivate func setupLayout() {
-        view.addSubviews([toolBar, containerView])
+        view.addSubviews([lottieView, toolBar, containerView])
         
         toolBar.snp.makeConstraints {
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -55,10 +66,24 @@ class MainVC: UIViewController {
             $0.top.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(toolBar.snp.top)
         }
+        
+        lottieView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(100)
+            $0.centerX.equalToSuperview()
+            $0.height.width.equalTo(300)
+        }
     }
     
     fileprivate func configUI() {
-        view.backgroundColor = UIColor.init(red: 79/255, green: 192/255, blue: 232/255, alpha: 1.0)
+        view.backgroundColor = UIColor.init(red: 104/255, green: 153/255, blue: 235/255, alpha: 1.0)
+          
+        lottieView.backgroundColor = .clear
+        lottieView.center = view.center
+        lottieView.loopMode = .loop
+        lottieView.contentMode = .scaleAspectFill
+        lottieView.layer.masksToBounds = true
+        lottieView.isHidden = true
+        lottieView.alpha = 0.2
     }
     
     private func setupToolbarItem() {

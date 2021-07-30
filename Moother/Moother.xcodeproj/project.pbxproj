@@ -35,6 +35,7 @@
 		EDD1D04C26B3FB9C0084AB6F /* WeatherAreaTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDD1D04A26B3FB9C0084AB6F /* WeatherAreaTVC.xib */; };
 		EDD1D04E26B3FC530084AB6F /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1D04D26B3FC530084AB6F /* UIButton+.swift */; };
 		EDD1D05026B3FE840084AB6F /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1D04F26B3FE840084AB6F /* UITableView+.swift */; };
+		EDD1D05226B402D20084AB6F /* 4800-weather-partly-cloudy.json in Resources */ = {isa = PBXBuildFile; fileRef = EDD1D05126B402D20084AB6F /* 4800-weather-partly-cloudy.json */; };
 		F1011FF988EFC2D93F665C3E /* Pods_Moother.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E44CC294DF61C20BCFC13B79 /* Pods_Moother.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +73,7 @@
 		EDD1D04A26B3FB9C0084AB6F /* WeatherAreaTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherAreaTVC.xib; sourceTree = "<group>"; };
 		EDD1D04D26B3FC530084AB6F /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		EDD1D04F26B3FE840084AB6F /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
+		EDD1D05126B402D20084AB6F /* 4800-weather-partly-cloudy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "4800-weather-partly-cloudy.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 		EDD1D00B26B108320084AB6F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EDD1D05326B402D50084AB6F /* Lotties */,
 				EDD1D03126B3EA900084AB6F /* Xibs */,
 				EDD1D01D26B126D60084AB6F /* Storyboards */,
 				EDD1D00E26B109D50084AB6F /* APIServices */,
@@ -261,6 +264,14 @@
 			path = Xibs;
 			sourceTree = "<group>";
 		};
+		EDD1D05326B402D50084AB6F /* Lotties */ = {
+			isa = PBXGroup;
+			children = (
+				EDD1D05126B402D20084AB6F /* 4800-weather-partly-cloudy.json */,
+			);
+			path = Lotties;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -320,6 +331,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDD1D05226B402D20084AB6F /* 4800-weather-partly-cloudy.json in Resources */,
 				EDD1D04026B3F2D40084AB6F /* WeatherInfoTVC.xib in Resources */,
 				EDD1D04426B3F4E30084AB6F /* WeatherDetailTVC.xib in Resources */,
 				EDD1D03826B3EB0B0084AB6F /* WeatherWeekTVC.xib in Resources */,

@@ -25,4 +25,15 @@ extension UIView {
         border.frame = CGRect(x: 0, y: self.frame.size.height - 1, width: self.frame.size.width,height: 1)
         self.layer.addSublayer(border)
     }
+    
+    func fadeIn(duration: TimeInterval = 0.4,
+                delay: TimeInterval = 0.0,
+                completion: @escaping ((Bool) -> Void) = {(finished: Bool) -> Void in}) {
+        UIView.animate(withDuration: duration,
+                       delay: delay,
+                       options: .curveEaseIn,
+                       animations: {
+                        self.alpha = 1.0
+                       }, completion: completion)
+    }
 }
