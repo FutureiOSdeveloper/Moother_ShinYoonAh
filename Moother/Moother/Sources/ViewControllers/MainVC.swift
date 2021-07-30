@@ -13,7 +13,7 @@ import Lottie
 
 class MainVC: UIViewController {
     // MARK: - Properties
-    lazy var lottieView = AnimationView(name: "4800-weather-partly-cloudy")
+    lazy var lottieView = AnimationView(name: selectLottieByTimeFormat())
     let toolBar = UIToolbar().then {
         $0.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
     }
@@ -43,6 +43,7 @@ class MainVC: UIViewController {
         setupToolbarItem()
         setupContainerView()
         setupPageControl()
+        selectBackgroundByTimeFormat()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -75,8 +76,6 @@ class MainVC: UIViewController {
     }
     
     fileprivate func configUI() {
-        view.backgroundColor = UIColor.init(red: 104/255, green: 153/255, blue: 235/255, alpha: 1.0)
-          
         lottieView.backgroundColor = .clear
         lottieView.center = view.center
         lottieView.loopMode = .loop
@@ -112,7 +111,7 @@ class MainVC: UIViewController {
         }
     }
     
-    func setupPageControl() {
+    private func setupPageControl() {
          pageControl.setIndicatorImage(UIImage(systemName: "location.fill"), forPage: 0)
     }
 }
