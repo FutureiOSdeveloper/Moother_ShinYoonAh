@@ -53,7 +53,7 @@ class WeekTVC: UITableViewCell {
                      maxLabel, minLabel])
         
         dayLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(15)
+            $0.leading.equalToSuperview().inset(25)
             $0.centerY.equalToSuperview()
         }
         
@@ -68,12 +68,12 @@ class WeekTVC: UITableViewCell {
         }
         
         minLabel.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(15)
+            $0.trailing.equalToSuperview().inset(25)
             $0.centerY.equalToSuperview()
         }
         
         maxLabel.snp.makeConstraints {
-            $0.trailing.equalTo(minLabel.snp.leading).offset(-30)
+            $0.trailing.equalTo(minLabel.snp.leading).offset(-25)
             $0.centerY.equalToSuperview()
         }
     }

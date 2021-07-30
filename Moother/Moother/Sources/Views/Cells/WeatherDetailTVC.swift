@@ -29,12 +29,12 @@ class WeatherDetailTVC: UITableViewCell {
     // MARK: - Custom Method
     private func configUI() {
         tableView.separatorColor = .white.withAlphaComponent(0.7)
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
         
         tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UINib(nibName: WeekTVC.identifier, bundle: nil), forCellReuseIdentifier: WeekTVC.identifier)
+        tableView.register(UINib(nibName: DetailTVC.identifier, bundle: nil), forCellReuseIdentifier: DetailTVC.identifier)
     }
     
     private func setupLayout() {
@@ -52,7 +52,7 @@ extension WeatherDetailTVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WeekTVC.identifier) as? WeekTVC else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
         cell.backgroundColor = .clear
         return cell
     }

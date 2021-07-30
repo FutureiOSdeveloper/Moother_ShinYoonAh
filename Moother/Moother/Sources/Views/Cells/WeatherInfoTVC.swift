@@ -36,7 +36,7 @@ class WeatherInfoTVC: UITableViewCell {
         
         infoLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(10)
-            $0.leading.equalToSuperview().inset(15)
+            $0.leading.equalToSuperview().inset(25)
         }
     }
 }
