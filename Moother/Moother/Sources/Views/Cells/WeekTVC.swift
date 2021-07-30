@@ -16,6 +16,7 @@ class WeekTVC: UITableViewCell {
     let dayLabel = UILabel().then {
         $0.text = "토요일"
         $0.textColor = .white
+        $0.font = .systemFont(ofSize: 20)
     }
     let weatherImage = UIImageView().then {
         $0.tintColor = .white
@@ -29,10 +30,12 @@ class WeekTVC: UITableViewCell {
     let maxLabel = UILabel().then {
         $0.textColor = .white
         $0.text = "34"
+        $0.font = .systemFont(ofSize: 20)
     }
     let minLabel = UILabel().then {
         $0.textColor = .systemGray2
         $0.text = "25"
+        $0.font = .systemFont(ofSize: 20)
     }
 
     override func awakeFromNib() {

@@ -129,6 +129,6 @@ extension WeatherVC: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension WeatherVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 270
+        return 315
     }
 }
