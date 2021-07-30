@@ -58,32 +58,32 @@ extension WeatherVC: UIScrollViewDelegate {
             self.headerHeightConstraint.constant += abs(scrollView.contentOffset.y)
             self.headerView.labelHeightConstraint.constant += abs(scrollView.contentOffset.y)
             
-            headerView.temperatureLabel.alpha += abs(scrollView.contentOffset.y/300)
-            headerView.degreeLabel.alpha += abs(scrollView.contentOffset.y/300)
-            headerView.limitTemperatureLabel.alpha += abs(scrollView.contentOffset.y/300)
-            
             if headerView.labelHeightConstraint.constant >= 70 {
                 headerView.labelHeightConstraint.constant = 70
-            }
-            
-            if self.headerHeightConstraint.constant >= 330 {
-                headerView.temperatureLabel.alpha = 1
-                headerView.degreeLabel.alpha = 1
-                headerView.limitTemperatureLabel.alpha = 1
+                
+                if self.headerHeightConstraint.constant >= 330 {
+                    headerView.temperatureLabel.alpha = 1
+                    headerView.degreeLabel.alpha = 1
+                    headerView.limitTemperatureLabel.alpha = 1
+                } else {
+                    headerView.temperatureLabel.alpha += abs(scrollView.contentOffset.y/200)
+                    headerView.degreeLabel.alpha += abs(scrollView.contentOffset.y/200)
+                    headerView.limitTemperatureLabel.alpha += abs(scrollView.contentOffset.y/200)
+                }
             }
         } else if scrollView.contentOffset.y > 0 && self.headerHeightConstraint.constant >= compactHeight {
             self.headerHeightConstraint.constant -= scrollView.contentOffset.y/15
             headerView.labelHeightConstraint.constant -= scrollView.contentOffset.y/30
-            headerView.temperatureLabel.alpha -= scrollView.contentOffset.y/700
-            headerView.degreeLabel.alpha -= scrollView.contentOffset.y/700
-            headerView.limitTemperatureLabel.alpha -= scrollView.contentOffset.y/700
+            headerView.temperatureLabel.alpha -= scrollView.contentOffset.y/900
+            headerView.degreeLabel.alpha -= scrollView.contentOffset.y/900
+            headerView.limitTemperatureLabel.alpha -= scrollView.contentOffset.y/900
 
             if self.headerHeightConstraint.constant <= compactHeight {
                 self.headerHeightConstraint.constant = compactHeight
             }
             
-            if headerView.labelHeightConstraint.constant <= 0 {
-                headerView.labelHeightConstraint.constant = 0
+            if headerView.labelHeightConstraint.constant <= 10 {
+                headerView.labelHeightConstraint.constant = 10
                 
                 headerView.temperatureLabel.alpha = 0
                 headerView.degreeLabel.alpha = 0
