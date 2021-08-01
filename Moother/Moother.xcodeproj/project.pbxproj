@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED0C3DF826B6BA5F00E244F1 /* WeatherTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C3DF726B6BA5F00E244F1 /* WeatherTableVC.swift */; };
+		ED0C3DFB26B6BF7800E244F1 /* AreaTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C3DF926B6BF7800E244F1 /* AreaTVC.swift */; };
+		ED0C3DFC26B6BF7800E244F1 /* AreaTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED0C3DFA26B6BF7800E244F1 /* AreaTVC.xib */; };
 		EDD1CFF026B107240084AB6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1CFEF26B107240084AB6F /* AppDelegate.swift */; };
 		EDD1CFF226B107240084AB6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1CFF126B107240084AB6F /* SceneDelegate.swift */; };
 		EDD1CFFA26B107240084AB6F /* Moother.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDD1CFF826B107240084AB6F /* Moother.xcdatamodeld */; };
@@ -45,6 +48,9 @@
 		914401C9F0BC77B4EEC47C65 /* Pods-Moother.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moother.debug.xcconfig"; path = "Target Support Files/Pods-Moother/Pods-Moother.debug.xcconfig"; sourceTree = "<group>"; };
 		C14D72FA84ACB753CCD5B337 /* Pods-Moother.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Moother.release.xcconfig"; path = "Target Support Files/Pods-Moother/Pods-Moother.release.xcconfig"; sourceTree = "<group>"; };
 		E44CC294DF61C20BCFC13B79 /* Pods_Moother.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Moother.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ED0C3DF726B6BA5F00E244F1 /* WeatherTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableVC.swift; sourceTree = "<group>"; };
+		ED0C3DF926B6BF7800E244F1 /* AreaTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaTVC.swift; sourceTree = "<group>"; };
+		ED0C3DFA26B6BF7800E244F1 /* AreaTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AreaTVC.xib; sourceTree = "<group>"; };
 		EDD1CFEC26B107240084AB6F /* Moother.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moother.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD1CFEF26B107240084AB6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDD1CFF126B107240084AB6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +157,7 @@
 				EDD1D01026B10A100084AB6F /* MainVC.swift */,
 				EDD1D01426B11CE30084AB6F /* MainPageVC.swift */,
 				EDD1D01926B124C80084AB6F /* WeatherVC.swift */,
+				ED0C3DF726B6BA5F00E244F1 /* WeatherTableVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -252,6 +259,7 @@
 				EDD1D04126B3F4E30084AB6F /* WeatherDetailTVC.swift */,
 				EDD1D04526B3F6E90084AB6F /* DetailTVC.swift */,
 				EDD1D04926B3FB9C0084AB6F /* WeatherAreaTVC.swift */,
+				ED0C3DF926B6BF7800E244F1 /* AreaTVC.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -265,6 +273,7 @@
 				EDD1D03626B3EB0B0084AB6F /* WeatherWeekTVC.xib */,
 				EDD1D03A26B3EBC70084AB6F /* WeekTVC.xib */,
 				EDD1D03E26B3F2D40084AB6F /* WeatherInfoTVC.xib */,
+				ED0C3DFA26B6BF7800E244F1 /* AreaTVC.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -347,6 +356,7 @@
 				EDD1D04C26B3FB9C0084AB6F /* WeatherAreaTVC.xib in Resources */,
 				EDD1D02026B126E70084AB6F /* Weather.storyboard in Resources */,
 				EDD1D04826B3F6E90084AB6F /* DetailTVC.xib in Resources */,
+				ED0C3DFC26B6BF7800E244F1 /* AreaTVC.xib in Resources */,
 				EDD1CFFC26B107250084AB6F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +424,8 @@
 				EDD1D04726B3F6E90084AB6F /* DetailTVC.swift in Sources */,
 				EDD1CFF226B107240084AB6F /* SceneDelegate.swift in Sources */,
 				EDD1D05926B41F050084AB6F /* UIViewController+.swift in Sources */,
+				ED0C3DFB26B6BF7800E244F1 /* AreaTVC.swift in Sources */,
+				ED0C3DF826B6BA5F00E244F1 /* WeatherTableVC.swift in Sources */,
 				EDD1D04E26B3FC530084AB6F /* UIButton+.swift in Sources */,
 				EDD1D05026B3FE840084AB6F /* UITableView+.swift in Sources */,
 				EDD1D02C26B3CF720084AB6F /* WeatherHeaderView.swift in Sources */,

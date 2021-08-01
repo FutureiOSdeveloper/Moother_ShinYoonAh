@@ -26,9 +26,10 @@ class MainVC: UIViewController {
             $0.width.equalTo(30)
         }
     }
-    let weatherListButton = UIBarButtonItem().then {
-        $0.image = UIImage(systemName: "list.dash")
+    let weatherListButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "list.dash"), for: .normal)
         $0.tintColor = .white
+        $0.addTarget(self, action: #selector(tappedWeatherList), for: .touchUpInside)
     }
     let containerView = UIView()
     let pageControl = UIPageControl()
@@ -89,12 +90,13 @@ class MainVC: UIViewController {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let leftButton = UIBarButtonItem(customView: weatherChannelButton)
         let middleControl = UIBarButtonItem(customView: pageControl)
+        let rightButton = UIBarButtonItem(customView: weatherListButton)
         
         items.append(leftButton)
         items.append(flexibleSpace)
         items.append(middleControl)
         items.append(flexibleSpace)
-        items.append(weatherListButton)
+        items.append(rightButton)
         
         toolBar.setItems(items, animated: true)
     }
@@ -113,5 +115,14 @@ class MainVC: UIViewController {
     
     private func setupPageControl() {
          pageControl.setIndicatorImage(UIImage(systemName: "location.fill"), forPage: 0)
+    }
+    
+    @objc
+    func tappedWeatherList() {
+        let vc = WeatherTableVC()
+        vc.modalPresentationStyle = .fullScreen
+        vc.modalTransitionStyle = .coverVertical
+        vc.areas = pageControl.numberOfPages
+        present(vc, animated: true, completion: nil)
     }
 }
