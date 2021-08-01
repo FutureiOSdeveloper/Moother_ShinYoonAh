@@ -17,6 +17,7 @@ class WeatherTableVC: UIViewController {
         $0.delegate = self
         $0.dataSource = self
     }
+    let footer = WeatherTableFooter()
     
     var areas = 0
 
@@ -49,4 +50,8 @@ extension WeatherTableVC: UITableViewDataSource {
     }
 }
 
-extension WeatherTableVC: UITableViewDelegate { }
+extension WeatherTableVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return footer
+    }
+}

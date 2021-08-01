@@ -11,6 +11,8 @@
 		ED0C3DFB26B6BF7800E244F1 /* AreaTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C3DF926B6BF7800E244F1 /* AreaTVC.swift */; };
 		ED0C3DFC26B6BF7800E244F1 /* AreaTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ED0C3DFA26B6BF7800E244F1 /* AreaTVC.xib */; };
 		ED0C3DFE26B6C33800E244F1 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C3DFD26B6C33800E244F1 /* UIApplication+.swift */; };
+		ED0C3E0026B6C43700E244F1 /* WeatherTableFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C3DFF26B6C43700E244F1 /* WeatherTableFooter.swift */; };
+		ED0C3E0226B6EDBD00E244F1 /* DegreeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C3E0126B6EDBD00E244F1 /* DegreeButton.swift */; };
 		EDD1CFF026B107240084AB6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1CFEF26B107240084AB6F /* AppDelegate.swift */; };
 		EDD1CFF226B107240084AB6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1CFF126B107240084AB6F /* SceneDelegate.swift */; };
 		EDD1CFFA26B107240084AB6F /* Moother.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDD1CFF826B107240084AB6F /* Moother.xcdatamodeld */; };
@@ -53,6 +55,8 @@
 		ED0C3DF926B6BF7800E244F1 /* AreaTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaTVC.swift; sourceTree = "<group>"; };
 		ED0C3DFA26B6BF7800E244F1 /* AreaTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AreaTVC.xib; sourceTree = "<group>"; };
 		ED0C3DFD26B6C33800E244F1 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
+		ED0C3DFF26B6C43700E244F1 /* WeatherTableFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableFooter.swift; sourceTree = "<group>"; };
+		ED0C3E0126B6EDBD00E244F1 /* DegreeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DegreeButton.swift; sourceTree = "<group>"; };
 		EDD1CFEC26B107240084AB6F /* Moother.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moother.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD1CFEF26B107240084AB6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDD1CFF126B107240084AB6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -248,6 +252,8 @@
 			children = (
 				EDD1D02226B265770084AB6F /* CustomHeaderView.swift */,
 				EDD1D02B26B3CF720084AB6F /* WeatherHeaderView.swift */,
+				ED0C3DFF26B6C43700E244F1 /* WeatherTableFooter.swift */,
+				ED0C3E0126B6EDBD00E244F1 /* DegreeButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -423,6 +429,7 @@
 				EDD1D04B26B3FB9C0084AB6F /* WeatherAreaTVC.swift in Sources */,
 				EDD1D01126B10A100084AB6F /* MainVC.swift in Sources */,
 				EDD1D02E26B3D2520084AB6F /* TimeCVC.swift in Sources */,
+				ED0C3E0026B6C43700E244F1 /* WeatherTableFooter.swift in Sources */,
 				EDD1CFFA26B107240084AB6F /* Moother.xcdatamodeld in Sources */,
 				EDD1D04726B3F6E90084AB6F /* DetailTVC.swift in Sources */,
 				EDD1CFF226B107240084AB6F /* SceneDelegate.swift in Sources */,
@@ -436,6 +443,7 @@
 				EDD1D03F26B3F2D40084AB6F /* WeatherInfoTVC.swift in Sources */,
 				EDD1D04326B3F4E30084AB6F /* WeatherDetailTVC.swift in Sources */,
 				EDD1D01326B116A70084AB6F /* UIView+.swift in Sources */,
+				ED0C3E0226B6EDBD00E244F1 /* DegreeButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
