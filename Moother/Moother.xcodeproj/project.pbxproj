@@ -13,6 +13,7 @@
 		ED0C3DFE26B6C33800E244F1 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C3DFD26B6C33800E244F1 /* UIApplication+.swift */; };
 		ED0C3E0026B6C43700E244F1 /* WeatherTableFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C3DFF26B6C43700E244F1 /* WeatherTableFooter.swift */; };
 		ED0C3E0226B6EDBD00E244F1 /* DegreeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED0C3E0126B6EDBD00E244F1 /* DegreeButton.swift */; };
+		ED5396E026B9264C0061722F /* 2801-night-moon.json in Resources */ = {isa = PBXBuildFile; fileRef = ED5396DF26B9264C0061722F /* 2801-night-moon.json */; };
 		EDD1CFF026B107240084AB6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1CFEF26B107240084AB6F /* AppDelegate.swift */; };
 		EDD1CFF226B107240084AB6F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD1CFF126B107240084AB6F /* SceneDelegate.swift */; };
 		EDD1CFFA26B107240084AB6F /* Moother.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EDD1CFF826B107240084AB6F /* Moother.xcdatamodeld */; };
@@ -57,6 +58,7 @@
 		ED0C3DFD26B6C33800E244F1 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		ED0C3DFF26B6C43700E244F1 /* WeatherTableFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTableFooter.swift; sourceTree = "<group>"; };
 		ED0C3E0126B6EDBD00E244F1 /* DegreeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DegreeButton.swift; sourceTree = "<group>"; };
+		ED5396DF26B9264C0061722F /* 2801-night-moon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "2801-night-moon.json"; sourceTree = "<group>"; };
 		EDD1CFEC26B107240084AB6F /* Moother.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Moother.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD1CFEF26B107240084AB6F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDD1CFF126B107240084AB6F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 		EDD1D05326B402D50084AB6F /* Lotties */ = {
 			isa = PBXGroup;
 			children = (
+				ED5396DF26B9264C0061722F /* 2801-night-moon.json */,
 				EDD1D05426B41A270084AB6F /* 4796-weather-cloudynight.json */,
 				EDD1D05126B402D20084AB6F /* 4800-weather-partly-cloudy.json */,
 			);
@@ -356,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDD1D05226B402D20084AB6F /* 4800-weather-partly-cloudy.json in Resources */,
+				ED5396E026B9264C0061722F /* 2801-night-moon.json in Resources */,
 				EDD1D04026B3F2D40084AB6F /* WeatherInfoTVC.xib in Resources */,
 				EDD1D04426B3F4E30084AB6F /* WeatherDetailTVC.xib in Resources */,
 				EDD1D03826B3EB0B0084AB6F /* WeatherWeekTVC.xib in Resources */,

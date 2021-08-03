@@ -17,6 +17,8 @@ class WeatherTableVC: UIViewController {
         $0.contentInset = UIEdgeInsets(top: -85, left: 0, bottom: 0, right: 0)
         $0.delegate = self
         $0.dataSource = self
+        let nib = UINib(nibName: AreaTVC.identifier, bundle: nil)
+        $0.register(nib, forCellReuseIdentifier: AreaTVC.identifier)
     }
     let footer = WeatherTableFooter()
     
@@ -47,6 +49,7 @@ extension WeatherTableVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AreaTVC.identifier) as? AreaTVC else { return UITableViewCell() }
+        cell.backgroundColor = .clear
         return cell
     }
 }
@@ -54,5 +57,9 @@ extension WeatherTableVC: UITableViewDataSource {
 extension WeatherTableVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return footer
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
     }
 }
