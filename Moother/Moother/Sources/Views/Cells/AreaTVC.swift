@@ -56,18 +56,18 @@ class AreaTVC: UITableViewCell {
             $0.edges.equalToSuperview()
         }
         
-        timeLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(15)
-            $0.leading.equalToSuperview().inset(25)
-        }
-        
         areaLabel.snp.makeConstraints {
-            $0.top.equalTo(timeLabel.snp.bottom).offset(5)
+            $0.bottom.equalToSuperview().inset(12)
             $0.leading.equalTo(timeLabel.snp.leading)
         }
         
+        timeLabel.snp.makeConstraints {
+            $0.bottom.equalTo(areaLabel.snp.top).offset(-3)
+            $0.leading.equalToSuperview().inset(25)
+        }
+        
         temperatureLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(2)
             $0.trailing.equalToSuperview().inset(25)
         }
     }

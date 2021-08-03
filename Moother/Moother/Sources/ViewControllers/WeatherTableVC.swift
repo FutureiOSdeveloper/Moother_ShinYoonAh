@@ -11,10 +11,9 @@ import Then
 import SnapKit
 
 class WeatherTableVC: UIViewController {
-    lazy var weatherTableView = UITableView(frame: .zero, style: .grouped).then {
+    lazy var weatherTableView = UITableView(frame: .zero, style: .plain).then {
         $0.backgroundColor = .clear
-        $0.automaticallyAdjustsScrollIndicatorInsets = false
-        $0.contentInset = UIEdgeInsets(top: -85, left: 0, bottom: 0, right: 0)
+        $0.contentInset = UIEdgeInsets(top: -UIApplication.statusBarHeight, left: 0, bottom: 0, right: 0)
         $0.delegate = self
         $0.dataSource = self
         let nib = UINib(nibName: AreaTVC.identifier, bundle: nil)
@@ -43,12 +42,29 @@ class WeatherTableVC: UIViewController {
 }
 
 extension WeatherTableVC: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return areas
+        switch section {
+        case 0:
+            return 1
+        default:
+            if areas != 0 {
+                return areas - 1
+            }
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AreaTVC.identifier) as? AreaTVC else { return UITableViewCell() }
+        if indexPath.section == 0 {
+            cell.timeLabel.text = "성남시"
+            cell.areaLabel.text = "나의 위치"
+        }
+        
         cell.backgroundColor = .clear
         return cell
     }
@@ -56,10 +72,29 @@ extension WeatherTableVC: UITableViewDataSource {
 
 extension WeatherTableVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return footer
+        switch section {
+        case 0:
+            return UIView(frame: CGRect.zero)
+        default:
+            return footer
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 0
+        default:
+            return 44
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        switch indexPath.section {
+        case 0:
+            return 130
+        default:
+            return 90
+        }
     }
 }
