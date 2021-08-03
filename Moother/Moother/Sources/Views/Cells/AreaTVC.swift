@@ -7,19 +7,26 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
 class AreaTVC: UITableViewCell {
     static let identifier = "AreaTVC"
 
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        backgroundColor = .white
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    private func setupLayout() {
+        
+    }
+    
+    private func configUI() {
+        
+    }
 }
