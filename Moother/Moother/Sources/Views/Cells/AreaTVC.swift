@@ -71,4 +71,20 @@ class AreaTVC: UITableViewCell {
             $0.trailing.equalToSuperview().inset(25)
         }
     }
+    
+    func changeTemper(isFar: Bool) {
+        if isFar {
+            if let temp = temperatureLabel.text {
+                let new = temp.split(separator: "º")
+                let far = Int(new[0])! + 32
+                temperatureLabel.text = "\(far)º"
+            }
+        } else {
+            if let temp = temperatureLabel.text {
+                let new = temp.split(separator: "º")
+                let cel = Int(new[0])! - 32
+                temperatureLabel.text = "\(cel)º"
+            }
+        }
+    }
 }

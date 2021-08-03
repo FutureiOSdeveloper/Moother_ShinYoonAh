@@ -22,6 +22,8 @@ class WeatherTableVC: UIViewController {
     let footer = WeatherTableFooter()
     
     var areas = 0
+    var isFar = false
+    var isClicked = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,8 @@ class WeatherTableVC: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .black
+        
+        footer.degreeButton.addTarget(self, action: #selector(pressedDegree), for: .touchUpInside)
     }
     
     private func setupLayout() {
@@ -38,6 +42,13 @@ class WeatherTableVC: UIViewController {
         weatherTableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    @objc
+    func pressedDegree() {
+        isFar.toggle()
+        weatherTableView.reloadData()
+        isClicked = true
     }
 }
 
@@ -63,6 +74,10 @@ extension WeatherTableVC: UITableViewDataSource {
         if indexPath.section == 0 {
             cell.timeLabel.text = "성남시"
             cell.areaLabel.text = "나의 위치"
+        }
+        
+        if isClicked {
+            cell.changeTemper(isFar: isFar)
         }
         
         cell.backgroundColor = .clear
