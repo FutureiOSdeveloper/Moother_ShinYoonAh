@@ -29,4 +29,13 @@ extension UILabel {
             }
         }
     }
+    
+    func addCharacterColor(word: String) {
+        if let labelText = text, labelText.count > 0 {
+            let attributedStr = NSMutableAttributedString(string: labelText)
+            attributedStr.addAttribute(.foregroundColor, value: UIColor.white, range: (labelText as NSString).range(of: word))
+            
+            attributedText = attributedStr
+        }
+    }
 }

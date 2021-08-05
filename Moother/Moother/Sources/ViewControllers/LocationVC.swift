@@ -14,12 +14,14 @@ import SnapKit
 class LocationVC: UIViewController {
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
+    private let searchTableCellIdentifier = "SearchTVC"
     
     lazy var searchResultTable = UITableView().then {
         $0.backgroundColor = .clear
         $0.separatorColor = .clear
         $0.delegate = self
         $0.dataSource = self
+        $0.register(UINib(nibName: searchTableCellIdentifier, bundle: nil), forCellReuseIdentifier: searchTableCellIdentifier)
     }
     var backgroundView = UIView()
     var headerView = UIView().then {
@@ -83,6 +85,7 @@ class LocationVC: UIViewController {
         searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "검색", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray4])
         searchBar.searchTextField.backgroundColor = UIColor.init(red: 116/255, green: 120/255, blue: 123/255, alpha: 1.0)
         searchBar.searchTextField.tintColor = .white
+        searchBar.searchTextField.textColor = .white
         searchBar.tintColor = .white
         searchBar.barTintColor = .init(red: 54/255, green: 57/255, blue: 59/255, alpha: 1.0)
         searchBar.showsCancelButton = true
@@ -100,7 +103,14 @@ extension LocationVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = searchResultTable.dequeueReusableCell(withIdentifier: searchTableCellIdentifier, for: indexPath)
+        let searchResult = searchResults[indexPath.row]
+        cell.textLabel?.text = searchResult.title
+        if let text = searchBar.searchTextField.text {
+            cell.textLabel?.textColor = UIColor.systemGray
+            cell.textLabel?.addCharacterColor(word: text)
+        }
+        return cell
     }
 }
 
