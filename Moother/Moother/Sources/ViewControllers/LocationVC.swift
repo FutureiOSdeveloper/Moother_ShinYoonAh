@@ -114,7 +114,31 @@ extension LocationVC: UITableViewDataSource {
     }
 }
 
-extension LocationVC: UITableViewDelegate { }
+extension LocationVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedResult = searchResults[indexPath.row]
+        let searchRequest = MKLocalSearch.Request(completion: selectedResult)
+        let search = MKLocalSearch(request: searchRequest)
+        search.start { (response, error) in
+            guard error == nil else {
+                print(error.debugDescription)
+                return
+            }
+            guard let placeMark = response?.mapItems[0].placemark else {
+                return
+            }
+//            let coordinate = Coordinate(coordinate: placeMark.coordinate)
+//            self.delegate?.userAdd(newLocation: Location(coordinate: coordinate, name: "\(placeMark.locality ?? selectedResult.title)"))
+            print(placeMark)
+            guard let vc = self.storyboard?.instantiateViewController(identifier: "WeatherVC") as? WeatherVC else { return }
+            if let area = placeMark.locality {
+                vc.headerView.areaLabel.text = area
+                vc.selectBackgroundByTimeFormat()
+            }
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
+}
 
 extension LocationVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
