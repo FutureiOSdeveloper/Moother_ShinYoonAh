@@ -33,10 +33,12 @@ class WeatherTableFooter: UIView {
         $0.addTarget(self, action: #selector(tappedSearchButton), for: .touchUpInside)
     }
     var items: [UIBarButtonItem] = []
+    var rootVC: UIViewController?
     
     // MARK: - Life Cycle
-    override init(frame:CGRect) {
-        super.init(frame: frame)
+    init(root: UIViewController) {
+        super.init(frame: .zero)
+        rootVC = root
         configUI()
         setupLayout()
         setupToolbarItem()
@@ -83,7 +85,8 @@ class WeatherTableFooter: UIView {
     
     @objc
     func tappedSearchButton() {
-        print("Search")
+        guard let vc = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "LocationVC") as? LocationVC else { return }
+        rootVC?.present(vc, animated: true, completion: nil)
     }
     
     @objc

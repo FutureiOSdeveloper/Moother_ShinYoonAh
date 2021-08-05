@@ -19,7 +19,7 @@ class WeatherTableVC: UIViewController {
         let nib = UINib(nibName: AreaTVC.identifier, bundle: nil)
         $0.register(nib, forCellReuseIdentifier: AreaTVC.identifier)
     }
-    let footer = WeatherTableFooter()
+    lazy var footer = WeatherTableFooter(root: self)
     
     var areas = 0
     var isFar = false
