@@ -86,6 +86,7 @@ class WeatherTableFooter: UIView {
     @objc
     func tappedSearchButton() {
         guard let vc = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "LocationVC") as? LocationVC else { return }
+        vc.modalPresentationStyle = .pageSheet
         rootVC?.present(vc, animated: true, completion: nil)
     }
     

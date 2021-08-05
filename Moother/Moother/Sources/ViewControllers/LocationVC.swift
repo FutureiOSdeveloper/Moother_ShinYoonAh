@@ -21,7 +21,15 @@ class LocationVC: UIViewController {
         $0.delegate = self
         $0.dataSource = self
     }
-    var infoLabel = UILabel()
+    var backgroundView = UIView()
+    var headerView = UIView().then {
+        $0.backgroundColor = .init(red: 54/255, green: 57/255, blue: 59/255, alpha: 1.0)
+    }
+    var infoLabel = UILabel().then {
+        $0.text = "도시, 우편번호 또는 공항 위치 입력"
+        $0.textColor = .white
+        $0.font = .systemFont(ofSize: 12)
+    }
     var searchBar = UISearchBar()
 
     override func viewDidLoad() {
@@ -31,13 +39,56 @@ class LocationVC: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubviews([searchResultTable, searchBar])
+        view.addSubviews([backgroundView, searchResultTable, headerView])
+        headerView.addSubviews([infoLabel, searchBar])
+        
+        backgroundView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        headerView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+        }
+        
+        infoLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(5)
+        }
+        
+        searchBar.snp.makeConstraints {
+            $0.top.equalTo(infoLabel.snp.bottom).offset(10)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        searchResultTable.snp.makeConstraints {
+            $0.top.equalTo(headerView.snp.bottom)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
     }
     
     private func configUI() {
+        view.backgroundColor = .black.withAlphaComponent(0)
+        
+        let blurEffect = UIBlurEffect(style: .dark)
+        let visualEffectView = UIVisualEffectView(effect: blurEffect)
+        visualEffectView.frame = view.frame
+        backgroundView.addSubview(visualEffectView)
+        
+        let textFieldInsideSearchBar = searchBar.value(forKey: "searchField") as? UITextField
+        let glassIconView = textFieldInsideSearchBar?.leftView as? UIImageView
+        glassIconView?.image = glassIconView?.image?.withRenderingMode(.alwaysTemplate)
+        glassIconView?.tintColor = UIColor.systemGray4
+        
+        searchBar.setValue("취소", forKey: "cancelButtonText")
+        searchBar.searchTextField.attributedPlaceholder = NSAttributedString(string: "검색", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray4])
+        searchBar.searchTextField.backgroundColor = UIColor.init(red: 116/255, green: 120/255, blue: 123/255, alpha: 1.0)
+        searchBar.searchTextField.tintColor = .white
+        searchBar.tintColor = .white
+        searchBar.barTintColor = .init(red: 54/255, green: 57/255, blue: 59/255, alpha: 1.0)
         searchBar.showsCancelButton = true
         searchBar.becomeFirstResponder()
         searchBar.delegate = self
+        searchBar.becomeFirstResponder()
         searchCompleter.delegate = self
         searchCompleter.resultTypes = .address
     }
