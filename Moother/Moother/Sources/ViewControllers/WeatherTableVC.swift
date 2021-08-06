@@ -141,7 +141,7 @@ extension WeatherTableVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
-            sendSelectedIndex?(indexPath.row)
+            sendSelectedIndex?(0)
         default:
             sendSelectedIndex?(indexPath.row+1)
         }

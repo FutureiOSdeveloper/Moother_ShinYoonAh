@@ -14,6 +14,8 @@ class MainPageVC: UIPageViewController {
     
     // MARK: - Properties
     var viewsList: [UIViewController] = []
+    var areas: [String] = ["성남시", "파리"]
+    var degrees: [String] = ["16", "15"]
     var currentIndex: Int {
         guard let vc = viewControllers?.first else { return 0 }
         return viewsList.firstIndex(of: vc) ?? 0
@@ -26,6 +28,7 @@ class MainPageVC: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageInit()
+        setupNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -42,11 +45,13 @@ class MainPageVC: UIPageViewController {
         
         guard let weatherVC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
             return }
+        weatherVC.headerView.areaLabel.text = areas[0]
+        weatherVC.headerView.temperatureLabel.text = degrees[0]
         guard let weather2VC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
             return }
-        guard let weather3VC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
-            return }
-        viewsList = [weatherVC, weather2VC, weather3VC]
+        weather2VC.headerView.areaLabel.text = areas[1]
+        weather2VC.headerView.temperatureLabel.text = degrees[1]
+        viewsList = [weatherVC, weather2VC]
         
         rootVC?.pageControl.numberOfPages = viewsList.count
     }
@@ -55,6 +60,37 @@ class MainPageVC: UIPageViewController {
         if index < 0 && index >= viewsList.count { return }
         self.setViewControllers([viewsList[index]], direction: .forward, animated:true, completion: nil)
         completeHandler?(currentIndex)
+    }
+    
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(getLocationTitle(_:)), name: NSNotification.Name("title"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getLocationDegree(_:)), name: NSNotification.Name("degree"), object: nil)
+    }
+    
+    @objc
+    func getLocationTitle(_ notification: Notification) {
+        let data = notification.object as! String
+        
+        makeNewViewController(area: data)
+    }
+
+    @objc
+    func getLocationDegree(_ notification: Notification) {
+        let data = notification.object as! String
+        
+        degrees.append(data)
+    }
+    
+    
+    func makeNewViewController(area: String) {
+        print("생성")
+        guard let weatherVC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
+            return }
+        areas.append(area)
+        
+        weatherVC.headerView.areaLabel.text = area
+        viewsList.insert(weatherVC, at: viewsList.count)
+        rootVC?.pageControl.numberOfPages = viewsList.count
     }
 }
 

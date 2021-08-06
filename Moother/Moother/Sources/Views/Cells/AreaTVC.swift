@@ -86,8 +86,10 @@ class AreaTVC: UITableViewCell {
         }
     }
     
-    func setupLabel(area: String, temper: String? = "16º") {
+    func setupLabel(area: String, temper: String? = "16") {
         areaLabel.text = area
-        temperatureLabel.text = temper
+        if let temper = temper {
+            temperatureLabel.text = "\(temper)º"
+        }
     }
 }

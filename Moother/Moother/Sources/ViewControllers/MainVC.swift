@@ -63,7 +63,7 @@ class MainVC: UIViewController {
     
     // MARK: - Custom Method
     fileprivate func setupLayout() {
-        view.addSubviews([lottieView, toolBar, containerView])
+        view.addSubviews([lottieView, toolBar, containerView, pageControl])
         
         toolBar.snp.makeConstraints {
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -78,6 +78,11 @@ class MainVC: UIViewController {
             $0.top.equalToSuperview().inset(100)
             $0.centerX.equalToSuperview()
             $0.height.width.equalTo(300)
+        }
+        
+        pageControl.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.centerY.equalTo(toolBar.snp.centerY)
         }
     }
     
@@ -103,12 +108,9 @@ class MainVC: UIViewController {
     private func setupToolbarItem() {
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         let leftButton = UIBarButtonItem(customView: weatherChannelButton)
-        let middleControl = UIBarButtonItem(customView: pageControl)
         let rightButton = UIBarButtonItem(customView: weatherListButton)
         
         items.append(leftButton)
-        items.append(flexibleSpace)
-        items.append(middleControl)
         items.append(flexibleSpace)
         items.append(rightButton)
         
@@ -139,18 +141,16 @@ class MainVC: UIViewController {
             print(index)
             self.pageControl.currentPage = index
             if let pageVC = self.children[0] as? MainPageVC {
-                if index > 0 {
-                    pageVC.setViewControllersFromIndex(index: index-1)
-                } else {
-                    pageVC.setViewControllersFromIndex(index: index)
-                }
+                pageVC.setViewControllersFromIndex(index: index)
             }
         }
         
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .coverVertical
-        vc.areas = ["파리", "파리"]
-        vc.tempers = ["16º", "15º"]
+        if let pageVC = self.children[0] as? MainPageVC {
+            vc.areas = pageVC.areas
+            vc.tempers = pageVC.degrees
+        }
         present(vc, animated: true, completion: nil)
     }
     
