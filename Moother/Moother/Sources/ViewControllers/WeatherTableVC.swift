@@ -11,6 +11,8 @@ import Then
 import SnapKit
 
 class WeatherTableVC: UIViewController {
+    var sendSelectedIndex: ((Int) -> ())?
+    
     lazy var weatherTableView = UITableView(frame: .zero, style: .plain).then {
         $0.backgroundColor = .clear
         $0.contentInset = UIEdgeInsets(top: -UIApplication.statusBarHeight, left: 0, bottom: 0, right: 0)
@@ -111,5 +113,16 @@ extension WeatherTableVC: UITableViewDelegate {
         default:
             return 90
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 0:
+            sendSelectedIndex?(indexPath.row)
+        default:
+            sendSelectedIndex?(indexPath.row + 1)
+        }
+        
+        dismiss(animated: true, completion: nil)
     }
 }

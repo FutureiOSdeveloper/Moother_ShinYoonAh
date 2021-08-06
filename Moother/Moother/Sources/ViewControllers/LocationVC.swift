@@ -135,6 +135,7 @@ extension LocationVC: UITableViewDelegate {
                 vc.headerView.areaLabel.text = area
                 vc.selectBackgroundByTimeFormat()
             }
+            vc.isLocation = true
             self.present(vc, animated: true, completion: nil)
         }
     }

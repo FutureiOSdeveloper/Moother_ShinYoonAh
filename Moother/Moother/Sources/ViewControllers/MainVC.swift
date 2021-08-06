@@ -134,7 +134,20 @@ class MainVC: UIViewController {
     @objc
     func tappedWeatherList() {
         let vc = WeatherTableVC()
-        vc.modalPresentationStyle = .fullScreen
+        
+        vc.sendSelectedIndex = { index in
+            print(index)
+            self.pageControl.currentPage = index
+            if let pageVC = self.children[0] as? MainPageVC {
+                if index > 0 {
+                    pageVC.setViewControllersFromIndex(index: index-1)
+                } else {
+                    pageVC.setViewControllersFromIndex(index: index)
+                }
+            }
+        }
+        
+        vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .coverVertical
         vc.areas = pageControl.numberOfPages
         present(vc, animated: true, completion: nil)

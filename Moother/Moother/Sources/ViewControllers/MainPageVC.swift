@@ -44,7 +44,9 @@ class MainPageVC: UIPageViewController {
             return }
         guard let weather2VC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
             return }
-        viewsList = [weatherVC, weather2VC]
+        guard let weather3VC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
+            return }
+        viewsList = [weatherVC, weather2VC, weather3VC]
         
         rootVC?.pageControl.numberOfPages = viewsList.count
     }

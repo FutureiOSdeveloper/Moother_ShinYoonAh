@@ -16,6 +16,18 @@ class WeatherVC: UIViewController {
     var weatherTimeView = WeatherHeaderView()
     var headerHeightConstraint: NSLayoutConstraint!
     
+    // MARK: - LocationVC Properties
+    let addButton = UIButton().then {
+        $0.setTitle("추가", for: .normal)
+        $0.titleLabel?.textColor = .white
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 17)
+    }
+    let cancelButton = UIButton().then {
+        $0.setTitle("취소", for: .normal)
+        $0.titleLabel?.textColor = .white
+    }
+    var isLocation = false
+    
     let headerHeight: CGFloat = 340
     let compactHeight: CGFloat = 120
 
@@ -24,6 +36,13 @@ class WeatherVC: UIViewController {
         super.viewDidLoad()
         setupLayout()
         setupTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if isLocation {
+            setupLocationLayout()
+            setupLocationAction()
+        }
     }
     
     // MARK: - Custom Methods
@@ -46,6 +65,32 @@ class WeatherVC: UIViewController {
             $0.top.equalTo(weatherTimeView.snp.bottom)
             $0.leading.trailing.bottom.equalToSuperview()
         }
+    }
+    
+    private func setupLocationLayout() {
+        view.addSubviews([cancelButton, addButton])
+        
+        cancelButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(25)
+            $0.leading.equalToSuperview().inset(25)
+        }
+        
+        addButton.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(25)
+            $0.trailing.equalToSuperview().inset(25)
+        }
+    }
+    
+    private func setupLocationAction() {
+        let cancelAction = UIAction { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        cancelButton.addAction(cancelAction, for: .touchUpInside)
+        
+        let addAction = UIAction { _ in
+            self.dismiss(animated: true, completion: nil)
+        }
+        addButton.addAction(addAction, for: .touchUpInside)
     }
     
     func setupTableView() {
