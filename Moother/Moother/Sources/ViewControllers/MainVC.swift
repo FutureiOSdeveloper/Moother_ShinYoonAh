@@ -41,6 +41,7 @@ class MainVC: UIViewController {
         super.viewDidLoad()
         setupLayout()
         configUI()
+        setupButtonAction()
         setupToolbarItem()
         setupContainerView()
         setupPageControl()
@@ -54,6 +55,10 @@ class MainVC: UIViewController {
         })
         
         lottieView.play()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(printForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     // MARK: - Custom Method
@@ -84,6 +89,15 @@ class MainVC: UIViewController {
         lottieView.layer.masksToBounds = true
         lottieView.isHidden = true
         lottieView.alpha = 0.2
+    }
+    
+    private func setupButtonAction() {
+        let weatherAction = UIAction { _ in
+            if let url = URL(string: "https://weather.com/ko-KR/weather/today/l/KSXX0037:1:KS?Goto=Redirected") {
+                        UIApplication.shared.open(url, options: [:])
+            }
+        }
+        weatherChannelButton.addAction(weatherAction, for: .touchUpInside)
     }
     
     private func setupToolbarItem() {
@@ -124,5 +138,10 @@ class MainVC: UIViewController {
         vc.modalTransitionStyle = .coverVertical
         vc.areas = pageControl.numberOfPages
         present(vc, animated: true, completion: nil)
+    }
+    
+    @objc
+    func printForeground() {
+        lottieView.play()
     }
 }

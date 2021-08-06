@@ -41,6 +41,7 @@ class WeatherTableFooter: UIView {
         rootVC = root
         configUI()
         setupLayout()
+        setupButtonAction()
         setupToolbarItem()
     }
     
@@ -66,6 +67,15 @@ class WeatherTableFooter: UIView {
             $0.width.equalTo(60)
             $0.height.equalTo(20)
         }
+    }
+    
+    private func setupButtonAction() {
+        let weatherAction = UIAction { _ in
+            if let url = URL(string: "https://weather.com/ko-KR/weather/today/l/KSXX0037:1:KS?Goto=Redirected") {
+                        UIApplication.shared.open(url, options: [:])
+            }
+        }
+        weatherChannelButton.addAction(weatherAction, for: .touchUpInside)
     }
     
     private func setupToolbarItem() {
