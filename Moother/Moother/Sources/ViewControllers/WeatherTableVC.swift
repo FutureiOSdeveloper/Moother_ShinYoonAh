@@ -65,7 +65,7 @@ class WeatherTableVC: UIViewController {
     func getLocationDegree(_ notification: Notification) {
         let data = notification.object as! String
         
-        tempers.append("\(data)º")
+        tempers.append(data)
     }
     
     @objc
@@ -147,5 +147,17 @@ extension WeatherTableVC: UITableViewDelegate {
         }
         
         dismiss(animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if indexPath.section == 1 {
+            if editingStyle == .delete {
+                
+                areas.remove(at: indexPath.row+1)
+                tempers.remove(at: indexPath.row+1)
+                NotificationCenter.default.post(name: NSNotification.Name("remove"), object: indexPath.row+1)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
     }
 }

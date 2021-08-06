@@ -62,9 +62,28 @@ class MainPageVC: UIPageViewController {
         completeHandler?(currentIndex)
     }
     
+    func makeNewViewController(area: String) {
+        print("생성")
+        guard let weatherVC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
+            return }
+        areas.append(area)
+        
+        weatherVC.headerView.areaLabel.text = area
+        viewsList.insert(weatherVC, at: viewsList.count)
+        rootVC?.pageControl.numberOfPages = viewsList.count
+    }
+    
+    func removeViewController(index: Int) {
+        viewsList.remove(at: index)
+        areas.remove(at: index)
+        degrees.remove(at: index)
+        rootVC?.pageControl.numberOfPages = viewsList.count
+    }
+    
     private func setupNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(getLocationTitle(_:)), name: NSNotification.Name("title"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(getLocationDegree(_:)), name: NSNotification.Name("degree"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeLocation(_:)), name: NSNotification.Name("remove"), object: nil)
     }
     
     @objc
@@ -81,16 +100,11 @@ class MainPageVC: UIPageViewController {
         degrees.append(data)
     }
     
-    
-    func makeNewViewController(area: String) {
-        print("생성")
-        guard let weatherVC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
-            return }
-        areas.append(area)
+    @objc
+    func removeLocation(_ notification: Notification) {
+        let index = notification.object as! Int
         
-        weatherVC.headerView.areaLabel.text = area
-        viewsList.insert(weatherVC, at: viewsList.count)
-        rootVC?.pageControl.numberOfPages = viewsList.count
+        removeViewController(index: index)
     }
 }
 

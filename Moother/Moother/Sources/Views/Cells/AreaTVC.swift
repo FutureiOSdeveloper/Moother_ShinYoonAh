@@ -14,7 +14,7 @@ import Lottie
 class AreaTVC: UITableViewCell {
     static let identifier = "AreaTVC"
     
-    let lottieView = UIImageView(image: UIImage(named: "sunny")).then {
+    let lottieView = UIImageView(image: UIImage(named: "sunnynight")).then {
         $0.contentMode = .scaleToFill
     }
     let timeLabel = UILabel().then {
