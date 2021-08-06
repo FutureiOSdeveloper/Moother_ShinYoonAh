@@ -27,13 +27,11 @@ class AreaTVC: UITableViewCell {
         $0.textColor = .white
         $0.setupShadow()
         $0.font = .systemFont(ofSize: 30, weight: .regular)
-        $0.text = "파리"
     }
     let temperatureLabel = UILabel().then {
         $0.textColor = .white
         $0.setupShadow()
         $0.font = .systemFont(ofSize: 70, weight: .thin)
-        $0.text = "16º"
         $0.addCharacterSpacing(kernValue: 5)
     }
 
@@ -86,5 +84,10 @@ class AreaTVC: UITableViewCell {
                 temperatureLabel.text = "\(cel)º"
             }
         }
+    }
+    
+    func setupLabel(area: String, temper: String? = "16º") {
+        areaLabel.text = area
+        temperatureLabel.text = temper
     }
 }

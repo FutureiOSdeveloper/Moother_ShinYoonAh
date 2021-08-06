@@ -149,7 +149,8 @@ class MainVC: UIViewController {
         
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .coverVertical
-        vc.areas = pageControl.numberOfPages
+        vc.areas = ["파리", "파리"]
+        vc.tempers = ["16º", "15º"]
         present(vc, animated: true, completion: nil)
     }
     

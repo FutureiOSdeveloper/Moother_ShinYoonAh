@@ -88,7 +88,11 @@ class WeatherVC: UIViewController {
         cancelButton.addAction(cancelAction, for: .touchUpInside)
         
         let addAction = UIAction { _ in
-            self.dismiss(animated: true, completion: nil)
+            if let title = self.headerView.areaLabel.text,
+               let degree = self.headerView.temperatureLabel.text {
+                NotificationCenter.default.post(name: NSNotification.Name("title"), object: title)
+                NotificationCenter.default.post(name: NSNotification.Name("degree"), object: degree)
+            }
         }
         addButton.addAction(addAction, for: .touchUpInside)
     }

@@ -38,6 +38,7 @@ class LocationVC: UIViewController {
         super.viewDidLoad()
         setupLayout()
         configUI()
+        setupNotification()
     }
     
     private func setupLayout() {
@@ -94,6 +95,15 @@ class LocationVC: UIViewController {
         searchBar.becomeFirstResponder()
         searchCompleter.delegate = self
         searchCompleter.resultTypes = .address
+    }
+    
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(dismissVC), name: NSNotification.Name("degree"), object: nil)
+    }
+    
+    @objc
+    func dismissVC() {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }
 

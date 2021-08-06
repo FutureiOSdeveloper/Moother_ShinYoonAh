@@ -23,7 +23,8 @@ class WeatherTableVC: UIViewController {
     }
     lazy var footer = WeatherTableFooter(root: self)
     
-    var areas = 0
+    var areas: [String] = []
+    var tempers: [String] = []
     var isFar = false
     var isClicked = false
 
@@ -31,6 +32,7 @@ class WeatherTableVC: UIViewController {
         super.viewDidLoad()
         configUI()
         setupLayout()
+        setupNotification()
     }
     
     private func configUI() {
@@ -44,6 +46,26 @@ class WeatherTableVC: UIViewController {
         weatherTableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    private func setupNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(getLocationDegree(_:)), name: NSNotification.Name("degree"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getLocationTitle(_:)), name: NSNotification.Name("title"), object: nil)
+    }
+    
+    @objc
+    func getLocationTitle(_ notification: Notification) {
+        let data = notification.object as! String
+        
+        areas.append(data)
+        weatherTableView.reloadData()
+    }
+    
+    @objc
+    func getLocationDegree(_ notification: Notification) {
+        let data = notification.object as! String
+        
+        tempers.append("\(data)º")
     }
     
     @objc
@@ -64,8 +86,8 @@ extension WeatherTableVC: UITableViewDataSource {
         case 0:
             return 1
         default:
-            if areas != 0 {
-                return areas - 1
+            if areas.count != 0 {
+                return areas.count - 1
             }
             return 0
         }
@@ -75,13 +97,14 @@ extension WeatherTableVC: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AreaTVC.identifier) as? AreaTVC else { return UITableViewCell() }
         if indexPath.section == 0 {
             cell.timeLabel.text = "성남시"
-            cell.areaLabel.text = "나의 위치"
+            cell.setupLabel(area: "나의 위치")
+        } else {
+            cell.setupLabel(area: areas[indexPath.row+1], temper: tempers[indexPath.row+1])
         }
         
         if isClicked {
             cell.changeTemper(isFar: isFar)
         }
-        
         cell.backgroundColor = .clear
         return cell
     }
@@ -120,7 +143,7 @@ extension WeatherTableVC: UITableViewDelegate {
         case 0:
             sendSelectedIndex?(indexPath.row)
         default:
-            sendSelectedIndex?(indexPath.row + 1)
+            sendSelectedIndex?(indexPath.row+1)
         }
         
         dismiss(animated: true, completion: nil)
