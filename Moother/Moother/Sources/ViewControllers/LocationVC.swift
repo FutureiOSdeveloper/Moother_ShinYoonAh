@@ -137,9 +137,10 @@ extension LocationVC: UITableViewDelegate {
             guard let placeMark = response?.mapItems[0].placemark else {
                 return
             }
-//            let coordinate = Coordinate(coordinate: placeMark.coordinate)
-//            self.delegate?.userAdd(newLocation: Location(coordinate: coordinate, name: "\(placeMark.locality ?? selectedResult.title)"))
-            print(placeMark)
+            let coordinate = placeMark.coordinate
+            
+            print("coordinate")
+            print(coordinate)
             guard let vc = self.storyboard?.instantiateViewController(identifier: "WeatherVC") as? WeatherVC else { return }
             if let area = placeMark.locality {
                 vc.headerView.areaLabel.text = area
