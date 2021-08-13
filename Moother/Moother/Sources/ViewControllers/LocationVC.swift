@@ -15,6 +15,7 @@ class LocationVC: UIViewController {
     private var searchCompleter = MKLocalSearchCompleter()
     private var searchResults = [MKLocalSearchCompletion]()
     private let searchTableCellIdentifier = "SearchTVC"
+    private let manager = WeatherManager.shared
     
     lazy var searchResultTable = UITableView().then {
         $0.backgroundColor = .clear
@@ -139,15 +140,18 @@ extension LocationVC: UITableViewDelegate {
             }
             let coordinate = placeMark.coordinate
             
-            print("coordinate")
-            print(coordinate)
-            guard let vc = self.storyboard?.instantiateViewController(identifier: "WeatherVC") as? WeatherVC else { return }
-            if let area = placeMark.locality {
-                vc.headerView.areaLabel.text = area
-                vc.selectBackgroundByTimeFormat()
+            self.manager.fetchWeatherInfo(lat: Double(coordinate.latitude), lon: Double(coordinate.longitude)) {
+                [weak self] weather in
+                
+                guard let vc = self?.storyboard?.instantiateViewController(identifier: "WeatherVC") as? WeatherVC else { return }
+                if let area = placeMark.locality {
+                    vc.headerView.areaLabel.text = area
+                    vc.selectBackgroundByTimeFormat()
+                    vc.weatherData = weather
+                }
+                vc.isLocation = true
+                self?.present(vc, animated: true, completion: nil)
             }
-            vc.isLocation = true
-            self.present(vc, animated: true, completion: nil)
         }
     }
 }

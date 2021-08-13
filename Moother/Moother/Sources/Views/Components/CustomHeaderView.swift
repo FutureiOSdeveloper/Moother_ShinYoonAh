@@ -43,7 +43,6 @@ class CustomHeaderView: UIView {
         wordWeatherLabel.font = .systemFont(ofSize: 18)
         wordWeatherLabel.textColor = .white
         
-        temperatureLabel.text = "32"
         temperatureLabel.font = .systemFont(ofSize: 80, weight: .thin)
         temperatureLabel.textColor = .white
         temperatureLabel.setupShadow()

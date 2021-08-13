@@ -30,6 +30,8 @@ class WeatherVC: UIViewController {
     
     let headerHeight: CGFloat = 340
     let compactHeight: CGFloat = 120
+    
+    var weatherData: WeatherResponse?
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -39,6 +41,8 @@ class WeatherVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setupWeatherData()
+        
         if isLocation {
             setupLocationLayout()
             setupLocationAction()
@@ -111,6 +115,15 @@ class WeatherVC: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         tableView.separatorColor = .white.withAlphaComponent(0.7)
+    }
+    
+    func setupWeatherData() {
+        if let temp = weatherData?.current.temp,
+           let tempMax = weatherData?.daily[0].dt {
+            let dateFormatter = DateConverter()
+            let time = dateFormatter.convertingUTCtime("\(tempMax)").toStringUTC(32400)
+            headerView.temperatureLabel.text = "\(Int(round(temp)))"
+        }
     }
 }
 

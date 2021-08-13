@@ -15,7 +15,7 @@ class WeatherManager {
     private let authProvider = MoyaProvider<WeatherService>(plugins: [NetworkLoggerPlugin(verbose: true)])
     private var weatherModel: WeatherResponse?
     
-    func fetchWeatherInfo(lat: Double, lon: Double) {
+    func fetchWeatherInfo(lat: Double, lon: Double, completion: @escaping ((WeatherResponse) -> ())) {
         let param = WeatherRequest.init(lat, lon, GeneralAPI.appid)
         
         authProvider.request(.main(param: param)) { response in
@@ -23,6 +23,7 @@ class WeatherManager {
             case .success(let result):
                 do {
                     self.weatherModel = try result.map(WeatherResponse.self)
+                    completion(self.weatherModel!)
                 } catch(let err) {
                     print(err.localizedDescription)
                 }
