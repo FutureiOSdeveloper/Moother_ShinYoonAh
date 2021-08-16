@@ -149,7 +149,7 @@ class MainVC: UIViewController {
         vc.modalTransitionStyle = .coverVertical
         if let pageVC = self.children[0] as? MainPageVC {
             vc.areas = pageVC.areas
-            vc.tempers = pageVC.degrees
+            vc.tempers = pageVC.weathers
         }
         present(vc, animated: true, completion: nil)
     }

@@ -24,7 +24,7 @@ class WeatherTableVC: UIViewController {
     lazy var footer = WeatherTableFooter(root: self)
     
     var areas: [String] = []
-    var tempers: [String] = []
+    var tempers: [WeatherResponse] = []
     var isFar = false
     var isClicked = false
 
@@ -63,7 +63,7 @@ class WeatherTableVC: UIViewController {
     
     @objc
     func getLocationDegree(_ notification: Notification) {
-        let data = notification.object as! String
+        let data = notification.object as! WeatherResponse
         
         tempers.append(data)
     }
@@ -99,7 +99,7 @@ extension WeatherTableVC: UITableViewDataSource {
             cell.timeLabel.text = "성남시"
             cell.setupLabel(area: "나의 위치")
         } else {
-            cell.setupLabel(area: areas[indexPath.row+1], temper: tempers[indexPath.row+1])
+            cell.setupLabel(area: areas[indexPath.row+1], temper: "\(tempers[indexPath.row+1].current.temp)")
         }
         
         if isClicked {

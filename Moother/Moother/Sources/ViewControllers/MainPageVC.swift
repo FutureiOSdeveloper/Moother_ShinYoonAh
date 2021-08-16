@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 import SnapKit
 
@@ -14,25 +15,28 @@ class MainPageVC: UIPageViewController {
     
     // MARK: - Properties
     var viewsList: [UIViewController] = []
-    var areas: [String] = ["성남시", "파리"]
-    var degrees: [String] = ["16", "15"]
+    var areas: [String] = []
+    var weathers: [WeatherResponse] = []
     var currentIndex: Int {
         guard let vc = viewControllers?.first else { return 0 }
         return viewsList.firstIndex(of: vc) ?? 0
     }
-    
+    var locationManger = CLLocationManager()
+    var firstVC: WeatherVC?
     var rootVC: MainVC?
     var currentPage = 0
+    
+    let serverManager = WeatherManager.shared
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        initLocation()
         pageInit()
         setupNotification()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+    override func viewDidAppear(_ animated: Bool) {
         setViewControllersFromIndex(index: currentPage)
     }
     
@@ -45,15 +49,30 @@ class MainPageVC: UIPageViewController {
         
         guard let weatherVC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
             return }
-        weatherVC.headerView.areaLabel.text = areas[0]
-        weatherVC.headerView.temperatureLabel.text = degrees[0]
-        guard let weather2VC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
-            return }
-        weather2VC.headerView.areaLabel.text = areas[1]
-        weather2VC.headerView.temperatureLabel.text = degrees[1]
-        viewsList = [weatherVC, weather2VC]
+        firstVC = weatherVC
+        
+        if !areas.isEmpty && !weathers.isEmpty {
+            firstVC?.headerView.areaLabel.text = areas[0]
+            firstVC?.weatherData = weathers[0]
+        }
+
+        viewsList = [firstVC ?? UIViewController()]
         
         rootVC?.pageControl.numberOfPages = viewsList.count
+    }
+    
+    private func initLocation() {
+        locationManger.delegate = self
+        locationManger.desiredAccuracy = kCLLocationAccuracyBest
+        locationManger.requestWhenInUseAuthorization()
+  
+        if CLLocationManager.locationServicesEnabled() {
+            print("위치 서비스 On 상태")
+            locationManger.startUpdatingLocation()
+            print(locationManger.location?.coordinate)
+        } else {
+            print("위치 서비스 Off 상태")
+        }
     }
     
     func setViewControllersFromIndex(index: Int) {
@@ -76,7 +95,7 @@ class MainPageVC: UIPageViewController {
     func removeViewController(index: Int) {
         viewsList.remove(at: index)
         areas.remove(at: index)
-        degrees.remove(at: index)
+        weathers.remove(at: index)
         rootVC?.pageControl.numberOfPages = viewsList.count
     }
     
@@ -95,9 +114,9 @@ class MainPageVC: UIPageViewController {
 
     @objc
     func getLocationDegree(_ notification: Notification) {
-        let data = notification.object as! String
+        let data = notification.object as! WeatherResponse
         
-        degrees.append(data)
+        weathers.append(data)
     }
     
     @objc
@@ -133,5 +152,46 @@ extension MainPageVC: UIPageViewControllerDelegate {
         if completed {
             completeHandler?(currentIndex)
         }
+    }
+}
+
+extension MainPageVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("didUpdateLocations")
+        let geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(locations[0]) { (placemarks, error) -> Void in
+            if error != nil {
+                NSLog("\(String(describing: error))")
+                return
+            }
+            
+            if let placemark = placemarks?.first,
+                  let place = placemark.locality {
+                if self.areas.isEmpty {
+                    self.areas.append(place)
+                } else {
+                    self.areas[0] = place
+                }
+                
+                self.firstVC?.headerView.areaLabel.text = place
+            }
+        }
+        
+        if let location = locations.first {
+            serverManager.fetchWeatherInfo(lat: location.coordinate.latitude, lon: location.coordinate.longitude) {
+                [weak self] weather in
+                self?.weathers.append(weather)
+                
+            }
+            print("위도: \(location.coordinate.latitude)")
+            print("경도: \(location.coordinate.longitude)")
+        }
+        
+        locationManger.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 }
