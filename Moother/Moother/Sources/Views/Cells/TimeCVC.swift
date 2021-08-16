@@ -35,7 +35,6 @@ class TimeCVC: UICollectionViewCell {
         humidityLabel.font = .systemFont(ofSize: 13, weight: .medium)
         humidityLabel.textColor = .cyan
           
-        temperatureLabel.text = "27º"
         temperatureLabel.textColor = .white
         temperatureLabel.font = .systemFont(ofSize: 20)
         

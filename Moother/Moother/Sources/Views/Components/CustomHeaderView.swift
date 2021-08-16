@@ -39,7 +39,6 @@ class CustomHeaderView: UIView {
         areaLabel.textColor = .white
         areaLabel.setupShadow()
         
-        wordWeatherLabel.text = "대체로 맑음"
         wordWeatherLabel.font = .systemFont(ofSize: 18)
         wordWeatherLabel.textColor = .white
         
@@ -52,7 +51,6 @@ class CustomHeaderView: UIView {
         degreeLabel.textColor = .white
         degreeLabel.setupShadow()
         
-        limitTemperatureLabel.text = "최고:36º 최저:24º"
         limitTemperatureLabel.font = .systemFont(ofSize: 18)
         limitTemperatureLabel.textColor = .white
     }

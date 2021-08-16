@@ -119,10 +119,14 @@ class WeatherVC: UIViewController {
     
     func setupWeatherData() {
         if let temp = weatherData?.current.temp,
-           let tempMax = weatherData?.daily[0].dt {
-            let dateFormatter = DateConverter()
-            let time = dateFormatter.convertingUTCtime("\(tempMax)").toStringUTC(32400)
+           let tempMax = weatherData?.daily[0].temp.max,
+           let tempMin = weatherData?.daily[0].temp.min,
+           let currentDescripation = weatherData?.current.weather[0].weatherDescription,
+           let hours = weatherData?.hourly {
             headerView.temperatureLabel.text = "\(Int(round(temp)))"
+            headerView.limitTemperatureLabel.text = "최고:\(Int(round(tempMax)))º 최저:\(Int(round(tempMin)))º"
+            headerView.wordWeatherLabel.text = currentDescripation
+            weatherTimeView.times = hours
         }
     }
 }
@@ -206,6 +210,10 @@ extension WeatherVC: UITableViewDataSource {
             return cell
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherInfoTVC.identifier) as? WeatherInfoTVC else { return UITableViewCell() }
+            if let tempMax = weatherData?.daily[0].temp.max,
+               let tempMin = weatherData?.daily[0].temp.min {
+                cell.infoLabel.text = "오늘: 현재 날씨 한때 흐름, 최고 기온은 \(Int(round(tempMax)))º입니다.\n오늘 밤 날씨 대체로 흐름, 최저 기온은 \(Int(round(tempMin)))º입니다."
+            }
             cell.backgroundColor = .clear
             return cell
         case 2:

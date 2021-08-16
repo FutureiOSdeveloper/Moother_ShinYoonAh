@@ -28,6 +28,7 @@ class WeatherHeaderView: UIView {
         }
         $0.backgroundColor = .white.withAlphaComponent(0.3)
     }
+    var times: [Current] = []
     
     // MARK: - Life Cycle
     override init(frame:CGRect) {
@@ -76,11 +77,14 @@ class WeatherHeaderView: UIView {
 
 extension WeatherHeaderView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 25
+        return times.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeCVC.identifier, for: indexPath) as? TimeCVC else { return UICollectionViewCell() }
+        cell.humidityLabel.text = "\(times[indexPath.item].humidity)"
+        cell.temperatureLabel.text = "\(Int(round(times[indexPath.item].temp)))"
+        cell.imageView.image = UIImage(systemName: times[indexPath.item].weather[0].icon.convertIcon())
         return cell
     }
 }

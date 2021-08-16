@@ -30,7 +30,7 @@ extension Date {
 
     func toStringUTC(_ timezone: Int ) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "a h:m"
+        dateFormatter.dateFormat = "HH시"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timezone)
         return dateFormatter.string(from: self)
     }
