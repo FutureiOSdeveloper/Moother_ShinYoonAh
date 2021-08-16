@@ -45,7 +45,6 @@ class MainVC: UIViewController {
         setupToolbarItem()
         setupContainerView()
         setupPageControl()
-        selectBackgroundByTimeFormat()
     }
     
     override func viewDidAppear(_ animated: Bool) {

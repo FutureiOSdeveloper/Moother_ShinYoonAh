@@ -34,7 +34,7 @@ class WeatherVC: UIViewController {
     var weatherData: WeatherResponse?
     var dailys: [Daily] = []
     var current: Current?
-    var timezone: String?
+    var timezone: Int?
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -126,7 +126,7 @@ class WeatherVC: UIViewController {
            let tempMin = weatherData?.daily[0].temp.min,
            let currentDescripation = weatherData?.current.weather[0].weatherDescription,
            let hours = weatherData?.hourly,
-           let timeZone = weatherData?.timezone,
+           let timeZone = weatherData?.timezoneOffset,
            let sunset = weatherData?.current.sunset,
            let sunrise = weatherData?.current.sunrise,
            let dailys = weatherData?.daily,
@@ -135,7 +135,7 @@ class WeatherVC: UIViewController {
             headerView.limitTemperatureLabel.text = "최고:\(Int(round(tempMax)))º 최저:\(Int(round(tempMin)))º"
             headerView.wordWeatherLabel.text = currentDescripation
             weatherTimeView.times = hours
-            weatherTimeView.timeZone = Int(timeZone)
+            weatherTimeView.timeZone = timezone
             weatherTimeView.sunTimes.append(contentsOf: [sunset, sunrise])
             weatherTimeView.times.append(contentsOf: [
                 Current(dt: sunset, sunrise: 0, sunset: sunset, temp: 0, feelsLike: 0, pressure: 0, humidity: 0, dewPoint: 0, uvi: 0, clouds: 0, visibility: 0, windSpeed: 0, windDeg: 0, windGust: 0, weather: [], pop: 0, rain: Rain(the1H: 0)),
@@ -145,10 +145,10 @@ class WeatherVC: UIViewController {
             
             var isValidTime = false
             let dateConveter = DateConverter()
-            let sunriseTime = dateConveter.convertingUTCtime("\(sunrise)").toStringCompareUTC(Int(timeZone) ?? 32400)
+            let sunriseTime = dateConveter.convertingUTCtime("\(sunrise)").toStringCompareUTC(timeZone)
             for (index, current) in weatherTimeView.times.enumerated() {
                 if index == 0 { continue }
-                let time = dateConveter.convertingUTCtime("\(current.dt)").toStringCompareUTC(Int(timeZone) ?? 32400)
+                let time = dateConveter.convertingUTCtime("\(current.dt)").toStringCompareUTC(timeZone)
                 for i in time {
                     if i == "0" {
                         if time == sunriseTime {

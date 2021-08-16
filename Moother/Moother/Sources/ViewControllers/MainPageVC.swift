@@ -189,6 +189,9 @@ extension MainPageVC: CLLocationManagerDelegate {
                 self?.firstVC?.weatherData = weather
                 self?.firstVC?.setupWeatherData()
                 self?.firstVC?.weatherTimeView.collectionView.reloadData()
+                
+                let dateConvert = DateConverter()
+                self?.rootVC?.selectBackgroundByTimeFormat(time: dateConvert.convertingUTCtime("\(weather.current.dt)").toStringCompareUTC(weather.timezoneOffset))
             }
             print("위도: \(location.coordinate.latitude)")
             print("경도: \(location.coordinate.longitude)")

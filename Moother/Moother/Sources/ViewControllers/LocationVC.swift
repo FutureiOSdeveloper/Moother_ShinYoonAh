@@ -146,8 +146,10 @@ extension LocationVC: UITableViewDelegate {
                 guard let vc = self?.storyboard?.instantiateViewController(identifier: "WeatherVC") as? WeatherVC else { return }
                 if let area = placeMark.locality {
                     vc.headerView.areaLabel.text = area
-                    vc.selectBackgroundByTimeFormat()
                     vc.weatherData = weather
+                    
+                    let dateConvert = DateConverter()
+                    vc.selectBackgroundByTimeFormat(time: dateConvert.convertingUTCtime("\(weather.current.dt)").toStringCompareUTC(weather.timezoneOffset))
                 }
                 vc.isLocation = true
                 self?.present(vc, animated: true, completion: nil)

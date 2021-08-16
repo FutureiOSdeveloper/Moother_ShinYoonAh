@@ -100,8 +100,9 @@ extension WeatherTableVC: UITableViewDataSource {
             cell.setupLabel(area: "나의 위치", temper: "\(Int(round(tempers[0].current.temp)))")
         } else {
             let dateConvert = DateConverter()
-            cell.timeLabel.text = dateConvert.convertingUTCtime("\(tempers[indexPath.row].current.dt)").toStringSunUTC(Int(tempers[indexPath.row].timezone) ?? 32400)
+            cell.timeLabel.text = dateConvert.convertingUTCtime("\(tempers[indexPath.row].current.dt)").toStringSunUTC(tempers[indexPath.row].timezoneOffset)
             cell.setupLabel(area: areas[indexPath.row+1], temper: "\(Int(round(tempers[indexPath.row + 1].current.temp)))")
+            print("\(indexPath.row): \(tempers[indexPath.row].current.temp)")
         }
         
         if isClicked {

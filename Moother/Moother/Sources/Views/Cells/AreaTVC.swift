@@ -21,7 +21,6 @@ class AreaTVC: UITableViewCell {
         $0.textColor = .white
         $0.setupShadow()
         $0.font = .systemFont(ofSize: 17)
-        $0.text = "07:21"
     }
     let areaLabel = UILabel().then {
         $0.textColor = .white

@@ -16,7 +16,7 @@ class WeatherDetailTVC: UITableViewCell {
     let tableView = UITableView()
     
     var current: Current?
-    var timezone: String?
+    var timezone: Int?
     var details: [[String]] = [["일출", "일몰"], ["비 올 확률", "습도"], ["바람", "체감"], ["강수량", "기압"], ["가시거리", "자외선 지수"]]
     var detailInfos = Array(repeating: ["", ""], count: 5)
 
@@ -66,9 +66,9 @@ extension WeatherDetailTVC: UITableViewDataSource {
             let dateConvert = DateConverter()
             if let sunrise = current?.sunrise,
                let sunset = current?.sunset,
-               let timezone = timezone{
-                cell.leftInfoLabel.text = dateConvert.convertingUTCtime("\(sunrise)").toStringSunUTC(Int(timezone) ?? 32400)
-                cell.rightInfoLabel.text = dateConvert.convertingUTCtime("\(sunset)").toStringSunUTC(Int(timezone) ?? 32400)
+               let timezone = timezone {
+                cell.leftInfoLabel.text = dateConvert.convertingUTCtime("\(sunrise)").toStringSunUTC(timezone)
+                cell.rightInfoLabel.text = dateConvert.convertingUTCtime("\(sunset)").toStringSunUTC(timezone)
             }
         case 1:
             if let humidity = current?.humidity,

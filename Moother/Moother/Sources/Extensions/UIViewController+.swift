@@ -8,13 +8,8 @@
 import UIKit
 
 extension UIViewController {
-    func selectBackgroundByTimeFormat() {
-        let formatterTime = DateFormatter()
-        formatterTime.dateFormat = "HH"
-        let currentTimeString = formatterTime.string(from: Date())
-        let currentTimeInt = Int(currentTimeString)!
-          
-        if currentTimeInt >= 18 || currentTimeInt <= 5 {
+    func selectBackgroundByTimeFormat(time: String) {
+        if Int(time)! >= 18 || Int(time)! <= 5 {
             view.backgroundColor = UIColor.init(red: 67/255, green: 74/255, blue: 84/255, alpha: 1.0)
         } else {
             view.backgroundColor = UIColor.init(red: 104/255, green: 153/255, blue: 235/255, alpha: 1.0)
