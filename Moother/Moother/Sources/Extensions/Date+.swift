@@ -34,4 +34,18 @@ extension Date {
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timezone)
         return dateFormatter.string(from: self)
     }
+    
+    func toStringSunUTC(_ timezone: Int ) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:MM"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezone)
+        return dateFormatter.string(from: self)
+    }
+    
+    func toStringCompareUTC(_ timezone: Int ) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH"
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: timezone)
+        return dateFormatter.string(from: self)
+    }
 }

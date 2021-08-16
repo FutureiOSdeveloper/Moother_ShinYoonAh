@@ -30,6 +30,7 @@ class WeatherHeaderView: UIView {
     }
     var timeZone: Int?
     var times: [Current] = []
+    var sunTimes: [Int] = []
     let rains: [String] = ["09d", "09n", "10d", "10n"]
     
     // MARK: - Life Cycle
@@ -79,26 +80,40 @@ class WeatherHeaderView: UIView {
 
 extension WeatherHeaderView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return times.count
+        if times.isEmpty {
+            return 0
+        }
+        return 25 + 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeCVC.identifier, for: indexPath) as? TimeCVC else { return UICollectionViewCell() }
         let dateConveter = DateConverter()
         
-        if rains.contains(times[indexPath.item].weather[0].icon) {
-            cell.humidityLabel.text = "\(times[indexPath.item].humidity)%"
-        }
-        
-        if indexPath.item == 0 {
-            cell.timeLabel.text = "지금"
-            cell.timeLabel.font = .boldSystemFont(ofSize: 17)
+        if sunTimes.contains(times[indexPath.item].sunrise ?? -1000) {
+            cell.timeLabel.text = dateConveter.convertingUTCtime("\(sunTimes[1])").toStringSunUTC(timeZone ?? 32400)
+            cell.temperatureLabel.text = "일출"
+            cell.imageView.image = UIImage(systemName: "sunrise.fill")
+        } else if sunTimes.contains(times[indexPath.item].sunset ?? -1000) {
+            cell.timeLabel.text = dateConveter.convertingUTCtime("\(sunTimes[0])").toStringSunUTC(timeZone ?? 32400)
+            cell.temperatureLabel.text = "일몰"
+            cell.imageView.image = UIImage(systemName: "sunset.fill")
         } else {
-            cell.timeLabel.text = dateConveter.convertingUTCtime("\(times[indexPath.item].dt)").toStringUTC(timeZone ?? 32400)
+            if rains.contains(times[indexPath.item].weather[0].icon) {
+                cell.humidityLabel.text = "\(times[indexPath.item].humidity)%"
+            }
+            
+            if indexPath.item == 0 {
+                cell.timeLabel.text = "지금"
+                cell.timeLabel.font = .boldSystemFont(ofSize: 17)
+            } else {
+                cell.timeLabel.text = dateConveter.convertingUTCtime("\(times[indexPath.item].dt)").toStringUTC(timeZone ?? 32400)
+            }
+            
+            cell.temperatureLabel.text = "\(Int(round(times[indexPath.item].temp)))º"
+            cell.imageView.image = UIImage(systemName: times[indexPath.item].weather[0].icon.convertIcon())?.withRenderingMode(.alwaysOriginal)
         }
         
-        cell.temperatureLabel.text = "\(Int(round(times[indexPath.item].temp)))º"
-        cell.imageView.image = UIImage(systemName: times[indexPath.item].weather[0].icon.convertIcon())
         return cell
     }
 }

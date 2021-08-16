@@ -46,8 +46,7 @@ class TimeCVC: UICollectionViewCell {
         temperatureLabel.textColor = .white
         temperatureLabel.font = .systemFont(ofSize: 20)
         
-        imageView.image = UIImage(systemName: "cloud.bolt.fill")
-        imageView.tintColor = .white
+        imageView.tintColor = .systemYellow
     }
     
     private func setupLayout() {

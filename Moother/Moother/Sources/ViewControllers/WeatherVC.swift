@@ -123,13 +123,22 @@ class WeatherVC: UIViewController {
            let tempMin = weatherData?.daily[0].temp.min,
            let currentDescripation = weatherData?.current.weather[0].weatherDescription,
            let hours = weatherData?.hourly,
-           let timeZone = weatherData?.timezone {
+           let timeZone = weatherData?.timezone,
+           let sunset = weatherData?.current.sunset,
+           let sunrise = weatherData?.current.sunrise {
             headerView.temperatureLabel.text = "\(Int(round(temp)))"
             headerView.limitTemperatureLabel.text = "최고:\(Int(round(tempMax)))º 최저:\(Int(round(tempMin)))º"
             headerView.wordWeatherLabel.text = currentDescripation
             weatherTimeView.times = hours
             weatherTimeView.timeZone = Int(timeZone)
+            weatherTimeView.sunTimes.append(contentsOf: [sunset, sunrise])
+            weatherTimeView.times.append(contentsOf: [
+                Current(dt: sunset, sunrise: 0, sunset: sunset, temp: 0, feelsLike: 0, pressure: 0, humidity: 0, dewPoint: 0, uvi: 0, clouds: 0, visibility: 0, windSpeed: 0, windDeg: 0, windGust: 0, weather: [], pop: 0, rain: Rain(the1H: 0)),
+                Current(dt: sunrise, sunrise: sunrise, sunset: 0, temp: 0, feelsLike: 0, pressure: 0, humidity: 0, dewPoint: 0, uvi: 0, clouds: 0, visibility: 0, windSpeed: 0, windDeg: 0, windGust: 0, weather: [], pop: 0, rain: Rain(the1H: 0))
+            ])
+            weatherTimeView.times = weatherTimeView.times.sorted(by: {$0.dt < $1.dt})
         }
+  
     }
 }
 
