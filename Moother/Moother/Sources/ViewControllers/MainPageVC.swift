@@ -86,7 +86,7 @@ class MainPageVC: UIPageViewController {
         guard let weatherVC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
             return }
         areas.append(area)
-        
+        weatherVC.weatherData = weathers[weathers.count-1]
         weatherVC.headerView.areaLabel.text = area
         viewsList.insert(weatherVC, at: viewsList.count)
         rootVC?.pageControl.numberOfPages = viewsList.count
@@ -100,8 +100,8 @@ class MainPageVC: UIPageViewController {
     }
     
     private func setupNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(getLocationTitle(_:)), name: NSNotification.Name("title"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(getLocationDegree(_:)), name: NSNotification.Name("degree"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(getLocationTitle(_:)), name: NSNotification.Name("title"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(removeLocation(_:)), name: NSNotification.Name("remove"), object: nil)
     }
     
@@ -116,7 +116,10 @@ class MainPageVC: UIPageViewController {
     func getLocationDegree(_ notification: Notification) {
         let data = notification.object as! WeatherResponse
         
-        weathers.append(data)
+        serverManager.fetchWeatherInfo(lat: data.lat, lon: data.lon) {
+            [weak self] weather in
+            self?.weathers.append(weather)
+        }
     }
     
     @objc
