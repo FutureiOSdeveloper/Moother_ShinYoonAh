@@ -136,7 +136,36 @@ class WeatherVC: UIViewController {
                 Current(dt: sunset, sunrise: 0, sunset: sunset, temp: 0, feelsLike: 0, pressure: 0, humidity: 0, dewPoint: 0, uvi: 0, clouds: 0, visibility: 0, windSpeed: 0, windDeg: 0, windGust: 0, weather: [], pop: 0, rain: Rain(the1H: 0)),
                 Current(dt: sunrise, sunrise: sunrise, sunset: 0, temp: 0, feelsLike: 0, pressure: 0, humidity: 0, dewPoint: 0, uvi: 0, clouds: 0, visibility: 0, windSpeed: 0, windDeg: 0, windGust: 0, weather: [], pop: 0, rain: Rain(the1H: 0))
             ])
-            weatherTimeView.times = weatherTimeView.times.sorted(by: {$0.dt < $1.dt})
+            weatherTimeView.times = weatherTimeView.times.sorted(by: { $0.dt < $1.dt })
+            
+            var isValidTime = false
+            let dateConveter = DateConverter()
+            let sunriseTime = dateConveter.convertingUTCtime("\(sunrise)").toStringCompareUTC(Int(timeZone) ?? 32400)
+            for (index, current) in weatherTimeView.times.enumerated() {
+                if index == 0 { continue }
+                let time = dateConveter.convertingUTCtime("\(current.dt)").toStringCompareUTC(Int(timeZone) ?? 32400)
+                for i in time {
+                    if i == "0" {
+                        if time == sunriseTime {
+                            let answer = weatherTimeView.times[0]
+                            weatherTimeView.times.insert(answer, at: index+1)
+                            weatherTimeView.times.removeFirst()
+                            
+                            if weatherTimeView.times[0].sunrise == 0 {
+                                weatherTimeView.times.removeFirst()
+                            }
+                            isValidTime = true
+                            break
+                        }
+                    } else {
+                        break
+                    }
+                }
+                
+                if isValidTime {
+                    break
+                }
+            }
         }
   
     }
