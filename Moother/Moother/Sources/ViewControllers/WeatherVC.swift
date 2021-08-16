@@ -33,6 +33,8 @@ class WeatherVC: UIViewController {
     
     var weatherData: WeatherResponse?
     var dailys: [Daily] = []
+    var current: Current?
+    var timezone: String?
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -127,7 +129,8 @@ class WeatherVC: UIViewController {
            let timeZone = weatherData?.timezone,
            let sunset = weatherData?.current.sunset,
            let sunrise = weatherData?.current.sunrise,
-           let dailys = weatherData?.daily {
+           let dailys = weatherData?.daily,
+           let current = weatherData?.current {
             headerView.temperatureLabel.text = "\(Int(round(temp)))"
             headerView.limitTemperatureLabel.text = "최고:\(Int(round(tempMax)))º 최저:\(Int(round(tempMin)))º"
             headerView.wordWeatherLabel.text = currentDescripation
@@ -170,6 +173,8 @@ class WeatherVC: UIViewController {
             }
             
             self.dailys = dailys
+            self.current = current
+            self.timezone = timeZone
         }
         
         tableView.reloadData()
@@ -265,10 +270,16 @@ extension WeatherVC: UITableViewDataSource {
             return cell
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherDetailTVC.identifier) as? WeatherDetailTVC else { return UITableViewCell() }
+            cell.current = current
+            cell.timezone = timezone
+            cell.tableView.reloadData()
             cell.backgroundColor = .clear
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherAreaTVC.identifier) as? WeatherAreaTVC else { return UITableViewCell() }
+            if let text = headerView.areaLabel.text {
+                cell.infoLabel.text = "\(text) 날씨."
+            }
             cell.backgroundColor = .clear
             return cell
         }

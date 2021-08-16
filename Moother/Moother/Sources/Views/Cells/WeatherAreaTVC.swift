@@ -26,7 +26,6 @@ class WeatherAreaTVC: UITableViewCell {
 
     // MARK: - Custom Method
     private func configUI() {
-        infoLabel.text = "광장동 날씨."
         infoLabel.textColor = .white
         
         mapButton.setTitle("지도에서 열기", for: .normal)
