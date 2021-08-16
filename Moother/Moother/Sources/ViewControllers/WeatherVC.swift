@@ -96,7 +96,7 @@ class WeatherVC: UIViewController {
         
         let addAction = UIAction { _ in
             if let title = self.headerView.areaLabel.text,
-               let degree = self.headerView.temperatureLabel.text {
+               let degree = self.weatherData {
                 NotificationCenter.default.post(name: NSNotification.Name("title"), object: title)
                 NotificationCenter.default.post(name: NSNotification.Name("degree"), object: degree)
             }

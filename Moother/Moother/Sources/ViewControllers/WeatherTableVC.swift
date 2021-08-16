@@ -96,10 +96,12 @@ extension WeatherTableVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AreaTVC.identifier) as? AreaTVC else { return UITableViewCell() }
         if indexPath.section == 0 {
-            cell.timeLabel.text = "성남시"
-            cell.setupLabel(area: "나의 위치")
+            cell.timeLabel.text = areas[0]
+            cell.setupLabel(area: "나의 위치", temper: "\(Int(round(tempers[0].current.temp)))")
         } else {
-            cell.setupLabel(area: areas[indexPath.row+1], temper: "\(tempers[indexPath.row+1].current.temp)")
+            let dateConvert = DateConverter()
+            cell.timeLabel.text = dateConvert.convertingUTCtime("\(tempers[indexPath.row].current.dt)").toStringSunUTC(Int(tempers[indexPath.row].timezone) ?? 32400)
+            cell.setupLabel(area: areas[indexPath.row+1], temper: "\(Int(round(tempers[indexPath.row + 1].current.temp)))")
         }
         
         if isClicked {
