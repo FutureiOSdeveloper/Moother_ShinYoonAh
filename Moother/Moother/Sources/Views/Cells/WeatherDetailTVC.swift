@@ -83,11 +83,8 @@ extension WeatherDetailTVC: UITableViewDataSource {
                 cell.rightInfoLabel.text = "\(feel)º"
             }
         case 3:
-            if let rain = current?.rain?.the1H,
-               let pressure = current?.pressure {
-                cell.leftInfoLabel.text = "\(rain)cm"
-                cell.rightInfoLabel.text = "\(pressure)hPa"
-            }
+            cell.leftInfoLabel.text = "\(current?.rain?.the1H ?? 0)cm"
+            cell.rightInfoLabel.text = "\(current?.pressure ?? 0)hPa"
         default:
             if let visible = current?.visibility{
                 cell.leftInfoLabel.text  = "\(Double(visible) / 1000)km"

@@ -14,24 +14,20 @@ class DetailTVC: UITableViewCell {
     static let identifier = "DetailTVC"
     
     let leftTitleLabel = UILabel().then {
-        $0.text = "일출"
         $0.textColor = .white.withAlphaComponent(0.8)
         $0.font = .systemFont(ofSize: 12)
     }
     let leftInfoLabel = UILabel().then {
-        $0.text = "05:34"
         $0.textColor = .white
         $0.font = .systemFont(ofSize: 30, weight: .regular)
         $0.setupShadow()
     }
     let rightTitleLabel = UILabel().then {
-        $0.text = "일몰"
         $0.textColor = .white.withAlphaComponent(0.8)
         $0.font = .systemFont(ofSize: 12)
     }
     let rightInfoLabel = UILabel().then {
         $0.textColor = .white
-        $0.text = "19:41"
         $0.font = .systemFont(ofSize: 30, weight: .regular)
         $0.setupShadow()
     }
@@ -44,6 +40,13 @@ class DetailTVC: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    override func prepareForReuse() {
+        leftInfoLabel.text = ""
+        leftTitleLabel.text = ""
+        rightInfoLabel.text = ""
+        rightTitleLabel.text = ""
     }
 
     private func setupLayout() {
