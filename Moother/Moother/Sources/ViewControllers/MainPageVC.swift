@@ -25,6 +25,7 @@ class MainPageVC: UIPageViewController {
     var firstVC: WeatherVC?
     var rootVC: MainVC?
     var currentPage = 0
+    var isFirst = true
     
     let serverManager = WeatherManager.shared
 
@@ -86,6 +87,7 @@ class MainPageVC: UIPageViewController {
         guard let weatherVC = UIStoryboard(name: "Weather", bundle: nil).instantiateViewController(identifier: "WeatherVC") as? WeatherVC else {
             return }
         areas.append(area)
+        print(weathers[weathers.count-1].current.temp)
         weatherVC.weatherData = weathers[weathers.count-1]
         weatherVC.headerView.areaLabel.text = area
         viewsList.insert(weatherVC, at: viewsList.count)
@@ -109,7 +111,10 @@ class MainPageVC: UIPageViewController {
     func getLocationTitle(_ notification: Notification) {
         let data = notification.object as! String
         
-        makeNewViewController(area: data)
+        DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute: {
+            self.makeNewViewController(area: data)
+        })
+        
     }
 
     @objc
@@ -182,17 +187,21 @@ extension MainPageVC: CLLocationManagerDelegate {
         }
         
         if let location = locations.first {
-            serverManager.fetchWeatherInfo(lat: location.coordinate.latitude, lon: location.coordinate.longitude) {
-                [weak self] weather in
-                self?.weathers.append(weather)
-                
-                self?.firstVC?.weatherData = weather
-                self?.firstVC?.setupWeatherData()
-                self?.firstVC?.weatherTimeView.collectionView.reloadData()
-                
-                let dateConvert = DateConverter()
-                self?.rootVC?.selectBackgroundByTimeFormat(time: dateConvert.convertingUTCtime("\(weather.current.dt)").toStringCompareUTC(weather.timezoneOffset))
+            if isFirst {
+                serverManager.fetchWeatherInfo(lat: location.coordinate.latitude, lon: location.coordinate.longitude) {
+                    [weak self] weather in
+                    self?.weathers.append(weather)
+                    
+                    self?.firstVC?.weatherData = weather
+                    self?.firstVC?.setupWeatherData()
+                    self?.firstVC?.weatherTimeView.collectionView.reloadData()
+                    
+                    let dateConvert = DateConverter()
+                    self?.rootVC?.selectBackgroundByTimeFormat(time: dateConvert.convertingUTCtime("\(weather.current.dt)").toStringCompareUTC(weather.timezoneOffset))
+                }
+                isFirst = false
             }
+            
             print("위도: \(location.coordinate.latitude)")
             print("경도: \(location.coordinate.longitude)")
         }
