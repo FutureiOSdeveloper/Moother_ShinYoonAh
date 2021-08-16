@@ -32,6 +32,7 @@ class WeatherVC: UIViewController {
     let compactHeight: CGFloat = 120
     
     var weatherData: WeatherResponse?
+    var dailys: [Daily] = []
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -125,7 +126,8 @@ class WeatherVC: UIViewController {
            let hours = weatherData?.hourly,
            let timeZone = weatherData?.timezone,
            let sunset = weatherData?.current.sunset,
-           let sunrise = weatherData?.current.sunrise {
+           let sunrise = weatherData?.current.sunrise,
+           let dailys = weatherData?.daily {
             headerView.temperatureLabel.text = "\(Int(round(temp)))"
             headerView.limitTemperatureLabel.text = "최고:\(Int(round(tempMax)))º 최저:\(Int(round(tempMin)))º"
             headerView.wordWeatherLabel.text = currentDescripation
@@ -166,8 +168,11 @@ class WeatherVC: UIViewController {
                     break
                 }
             }
+            
+            self.dailys = dailys
         }
-  
+        
+        tableView.reloadData()
     }
 }
 
@@ -246,6 +251,8 @@ extension WeatherVC: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherWeekTVC.identifier) as? WeatherWeekTVC else { return UITableViewCell() }
+            cell.dailys = dailys
+            cell.tableView.reloadData()
             cell.backgroundColor = .clear
             return cell
         case 1:
@@ -273,7 +280,7 @@ extension WeatherVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 315
+            return 290
         case 1:
             return 60
         case 2:

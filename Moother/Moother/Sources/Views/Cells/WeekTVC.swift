@@ -14,13 +14,10 @@ class WeekTVC: UITableViewCell {
     static let identifier = "WeekTVC"
     
     let dayLabel = UILabel().then {
-        $0.text = "토요일"
         $0.textColor = .white
-        $0.font = .systemFont(ofSize: 20)
     }
     let weatherImage = UIImageView().then {
-        $0.tintColor = .white
-        $0.image = UIImage(systemName: "cloud.bolt.fill")
+        $0.tintColor = .systemYellow
     }
     let humidityLabel = UILabel().then {
         $0.textColor = .cyan
@@ -46,6 +43,15 @@ class WeekTVC: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    override func prepareForReuse() {
+        dayLabel.text = ""
+        dayLabel.font = .systemFont(ofSize: 20)
+        humidityLabel.text = ""
+        maxLabel.text = ""
+        minLabel.text = ""
+        weatherImage.image = UIImage()
     }
 
     private func setupLayout() {
@@ -73,7 +79,7 @@ class WeekTVC: UITableViewCell {
         }
         
         maxLabel.snp.makeConstraints {
-            $0.trailing.equalTo(minLabel.snp.leading).offset(-25)
+            $0.trailing.equalToSuperview().inset(70)
             $0.centerY.equalToSuperview()
         }
     }

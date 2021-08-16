@@ -14,6 +14,9 @@ class WeatherWeekTVC: UITableViewCell {
     static let identifier = "WeatherWeekTVC"
     
     let tableView = UITableView()
+    
+    var dailys: [Daily] = []
+    let rains: [String] = ["09d", "09n", "10d", "10n"]
 
     // MARK: - Life Cycle
     override func awakeFromNib() {
@@ -46,11 +49,21 @@ class WeatherWeekTVC: UITableViewCell {
 
 extension WeatherWeekTVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 9
+        return dailys.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WeekTVC.identifier) as? WeekTVC else { return UITableViewCell() }
+        let dateConvert = DateConverter()
+        cell.dayLabel.text = dateConvert.convertingUTCtime("\(dailys[indexPath.row].dt)").toStringWeekUTC()
+        
+        if rains.contains(dailys[indexPath.row].weather[0].icon) {
+            cell.humidityLabel.text = "\(dailys[indexPath.row].humidity)%"
+        }
+        
+        cell.maxLabel.text = "\(Int(round(dailys[indexPath.row].temp.max)))"
+        cell.minLabel.text = "\(Int(round(dailys[indexPath.row].temp.min)))"
+        cell.weatherImage.image = UIImage(systemName: dailys[indexPath.row].weather[0].icon.convertIcon())?.withRenderingMode(.alwaysOriginal)
         cell.backgroundColor = .clear
         return cell
     }

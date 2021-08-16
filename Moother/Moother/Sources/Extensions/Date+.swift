@@ -48,4 +48,11 @@ extension Date {
         dateFormatter.timeZone = TimeZone(secondsFromGMT: timezone)
         return dateFormatter.string(from: self)
     }
+    
+    func toStringWeekUTC() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        return dateFormatter.string(from: self)
+    }
 }
