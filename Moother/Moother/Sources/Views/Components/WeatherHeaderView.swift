@@ -28,7 +28,9 @@ class WeatherHeaderView: UIView {
         }
         $0.backgroundColor = .white.withAlphaComponent(0.3)
     }
+    var timeZone: Int?
     var times: [Current] = []
+    let rains: [String] = ["09d", "09n", "10d", "10n"]
     
     // MARK: - Life Cycle
     override init(frame:CGRect) {
@@ -82,8 +84,20 @@ extension WeatherHeaderView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimeCVC.identifier, for: indexPath) as? TimeCVC else { return UICollectionViewCell() }
-        cell.humidityLabel.text = "\(times[indexPath.item].humidity)"
-        cell.temperatureLabel.text = "\(Int(round(times[indexPath.item].temp)))"
+        let dateConveter = DateConverter()
+        
+        if rains.contains(times[indexPath.item].weather[0].icon) {
+            cell.humidityLabel.text = "\(times[indexPath.item].humidity)%"
+        }
+        
+        if indexPath.item == 0 {
+            cell.timeLabel.text = "지금"
+            cell.timeLabel.font = .boldSystemFont(ofSize: 17)
+        } else {
+            cell.timeLabel.text = dateConveter.convertingUTCtime("\(times[indexPath.item].dt)").toStringUTC(timeZone ?? 32400)
+        }
+        
+        cell.temperatureLabel.text = "\(Int(round(times[indexPath.item].temp)))º"
         cell.imageView.image = UIImage(systemName: times[indexPath.item].weather[0].icon.convertIcon())
         return cell
     }

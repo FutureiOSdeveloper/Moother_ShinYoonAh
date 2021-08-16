@@ -122,11 +122,13 @@ class WeatherVC: UIViewController {
            let tempMax = weatherData?.daily[0].temp.max,
            let tempMin = weatherData?.daily[0].temp.min,
            let currentDescripation = weatherData?.current.weather[0].weatherDescription,
-           let hours = weatherData?.hourly {
+           let hours = weatherData?.hourly,
+           let timeZone = weatherData?.timezone {
             headerView.temperatureLabel.text = "\(Int(round(temp)))"
             headerView.limitTemperatureLabel.text = "최고:\(Int(round(tempMax)))º 최저:\(Int(round(tempMin)))º"
             headerView.wordWeatherLabel.text = currentDescripation
             weatherTimeView.times = hours
+            weatherTimeView.timeZone = Int(timeZone)
         }
     }
 }

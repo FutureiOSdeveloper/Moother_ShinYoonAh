@@ -183,6 +183,9 @@ extension MainPageVC: CLLocationManagerDelegate {
                 [weak self] weather in
                 self?.weathers.append(weather)
                 
+                self?.firstVC?.weatherData = weather
+                self?.firstVC?.setupWeatherData()
+                self?.firstVC?.weatherTimeView.collectionView.reloadData()
             }
             print("위도: \(location.coordinate.latitude)")
             print("경도: \(location.coordinate.longitude)")

@@ -25,13 +25,21 @@ class TimeCVC: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        timeLabel.text = ""
+        timeLabel.font = .systemFont(ofSize: 17)
+        humidityLabel.text = ""
+        temperatureLabel.text = ""
+        timeLabel.text = ""
+        imageView.image = UIImage()
+    }
+    
     private func configUI() {
         backgroundColor = .clear
         
-        timeLabel.text = "23시"
+        timeLabel.font = .systemFont(ofSize: 17)
         timeLabel.textColor = .white
         
-        humidityLabel.text = "30%"
         humidityLabel.font = .systemFont(ofSize: 13, weight: .medium)
         humidityLabel.textColor = .cyan
           
